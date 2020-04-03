@@ -22,6 +22,12 @@ class CustomUserCreationform(UserCreationForm):
             "placeholder" : "비밀번호 확인"
         })
     )
+    name = forms.CharField(
+        label="",
+        widget = forms.TextInput(attrs={
+            "placeholder" : "이름 입력"
+        })
+    )
     dept_name = forms.CharField(
         label="",
         widget = forms.TextInput(attrs={
@@ -44,5 +50,9 @@ class CustomUserCreationform(UserCreationForm):
 
     class Meta:
         model = get_user_model()
-        fields = ['username','password1','password2','email','dept_name','rank','gender',]
-    
+        fields = ['username','password1','password2','name','email','dept_name','rank','gender',]
+
+    # 글자수 제한
+    def __init__(self, *args, **kwargs):
+        super(CustomUserCreationform, self).__init__( *args, **kwargs)
+        self.fields['username'].widget.attrs['maxlength'] = 15

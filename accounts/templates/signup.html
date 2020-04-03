@@ -2,131 +2,33 @@
 {% load bootstrap4 %}
 {% block content %}
 
-<!-- <div class="container p-5 my-5 rounded-lg shadow-lg" id="loginbox">
-	<h1 class="text-center">회원가입</h1>
-	<br>
-	<form method="post" action="joinAction.jsp">
-	<div class="row">
-		<div class="col-sm-3"><h3 class="text-right">아이디:</h3></div>
-		<div class="col-sm-6"><input type="text" class="form-control form-control rounded-pill" placeholder="ID를 입력하시오." name="userID"></div>
-		<div class="col-sm-3"><input type="submit" class="btn btn-dark form-control rounded-pill" value="중복확인"></div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3"><h1></h1></div>
-        <div class="col-sm-6"><h1></h1></div>
-        <div class="col-sm-3"><h1></h1></div>
-    </div>
-	<div class="row">
-		<div class="col-sm-3"><h3 class="text-right">비밀번호:</h3></div>
-		<div class="col-sm-6"><input type="password" class="form-control form-control rounded-pill" placeholder="PW를 입력하시오." name = "userPassword"></div>
-		<div class="col-sm-3"></div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3"><h1></h1></div>
-        <div class="col-sm-6"><h1></h1></div>
-        <div class="col-sm-3"><h1></h1></div>
-    </div>
-    <div class="row">
-		<div class="col-sm-3"><h3 class="text-right">비밀번호 확인:</h3></div>
-		<div class="col-sm-6"><input type="password" class="form-control form-control rounded-pill" placeholder="PW를 확인하시오." name = "userPassword"></div>
-		<div class="col-sm-3"></div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3"><h1></h1></div>
-        <div class="col-sm-6"><h1></h1></div>
-        <div class="col-sm-3"><h1></h1></div>
-    </div>
-	<div class="row">
-		<div class="col-sm-3"><h3 class="text-right">이름:</h3></div>
-		<div class="col-sm-6"><input type="text" class="form-control form-control rounded-pill" placeholder="이름을 입력하시오." name = "userName"></div>
-		<div class="col-sm-3"></div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3"><h1></h1></div>
-        <div class="col-sm-6"><h1></h1></div>
-        <div class="col-sm-3"><h1></h1></div>
-    </div>
-	<div class="row">
-		<div class="col-sm-3"><h3 class="text-right">이메일:</h3></div>
-		<div class="col-sm-6">
-			<div class="form-group">
-    			<input type="text" class="form-control form-control rounded-pill" placeholder="name@example.com" name = "userEmail">
-  			</div>
-  		</div>
-		<div class="col-sm-3"></div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3"><h1></h1></div>
-        <div class="col-sm-6"><h1></h1></div>
-        <div class="col-sm-3"><h1></h1></div>
-    </div>
-	<div class="row">
-		<div class="col-sm-3"><h3 class="text-right">부서:</h3></div>
-		<div class="col-sm-6">
-			<div class="form-group">
-    			<input type="text" class="form-control form-control rounded-pill" placeholder="부서를 입력하시오." name = "deptName">
-  			</div>
-  		</div>
-		<div class="col-sm-3"></div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3"><h1></h1></div>
-        <div class="col-sm-6"><h1></h1></div>
-        <div class="col-sm-3"><h1></h1></div>
-    </div>
-	<div class="row">
-		<div class="col-sm-3"><h3 class="text-right">직급:</h3></div>
-		<div class="col-sm-6">
-			<div class="form-group">
-    			<input type="text" class="form-control form-control rounded-pill" placeholder="직급을 입력하시오." name = "rankName">
-  			</div>
-  		</div>
-		<div class="col-sm-3"></div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3"><h1></h1></div>
-        <div class="col-sm-6"><h1></h1></div>
-        <div class="col-sm-3"><h1></h1></div>
-    </div>
-	<div class="row">
-		<div class="col-sm-3"><h3 class="text-right">성별:</h3></div>
-		<div class="col-sm-6">
-			<div class="form-check form-check-inline" id ="maleradio">
-			  <input class="form-check-input" type="radio" name="userGender" id="inlineRadio1" value="male">
-			  <h3><i class="fas fa-male">&nbsp;</i>
-			  <label class="form-check-label" for="inlineRadio1">남자</label></h3>
-			</div>
-			<div class="form-check form-check-inline" id ="femaleradio">
-			  <input class="form-check-input" type="radio" name="userGender" id="inlineRadio2" value="female">
-			  <h3><i class="fas fa-female">&nbsp;</i>
-			  <label class="form-check-label" for="inlineRadio2">여자</label></h3>
-			</div>			
-		</div>
-		<div class="col-sm-3"></div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3"><h1></h1></div>
-        <div class="col-sm-6"><h1></h1></div>
-        <div class="col-sm-3"><h1></h1></div>
-    </div>
-	<br>
-	<div class="row">
-	<div class="col-sm-3"></div>
-	<div class="col-sm-6"><input type="submit" class="btn btn-primary form-control rounded-pill" value="회원가입"></div>
-	<div class="col-sm-3"></div>
-	</div>
-		
-	</form>
-	</div>
- -->
-<div class="container p-5 my-5 rounded-lg shadow-lg">
+
+<div class="container p-2 my-5 rounded-lg shadow-lg">
 	<h1 class="text-center">회원가입</h1>
 	<br>
  <form method="POST">
-     {% csrf_token %}
-     {% bootstrap_form form %}
-     <!-- {{ form.as_p }} -->
-     <button type ="submit" class="btn btn-primary">가입</button>
+	 {% csrf_token %}
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<h1></h1>
+			</div>
+			<div class="col">
+				 {% bootstrap_form form %}
+				 <div class="float-right">
+					<button type ="submit" class="btn btn-primary">가입</button>
+					<a href="{% url 'home' %}"><button type = "button" class="btn btn-danger">취소</button></a>
+				</div>
+			</div>
+			<div class="col">
+				<button type ="submit" class="btn btn-dark">중복확인</button>			
+			</div>
+		</div>
+	</div>
+
+
+	
  </form>
+ 
 </div>
 {% endblock %}
