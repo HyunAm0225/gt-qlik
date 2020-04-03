@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 from django import forms 
+from .models import User
 
 class CustomUserCreationform(UserCreationForm):
     username = forms.CharField(
@@ -21,8 +22,27 @@ class CustomUserCreationform(UserCreationForm):
             "placeholder" : "비밀번호 확인"
         })
     )
+    dept_name = forms.CharField(
+        label="",
+        widget = forms.TextInput(attrs={
+            "placeholder" : "부서 이름"
+        })
+    )
+    rank = forms.CharField(
+        label="",
+        widget = forms.TextInput(attrs={
+            "placeholder" : "직급"
+        })
+    )
+    email = forms.EmailField(
+        label="",
+        widget = forms.EmailInput(attrs={
+            "placeholder" : "이메일 입력"
+        })
+
+    )
 
     class Meta:
         model = get_user_model()
-        fileds = ['username','password1','password2',]
+        fields = ['username','password1','password2','email','dept_name','rank','gender',]
     
