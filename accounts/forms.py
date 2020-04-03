@@ -59,6 +59,40 @@ class CustomUserCreationform(UserCreationForm):
         self.fields['username'].widget.attrs['maxlength'] = 15
 
 class CustomUserChangeForm(UserChangeForm):
+    username = forms.CharField(
+        label="아이디",
+        widget = forms.TextInput(attrs={
+            "placeholder" : "사용자 아이디",
+            'readonly' : 'readonly'
+        })
+    )
+    name = forms.CharField(
+        label="이름",
+        widget = forms.TextInput(attrs={
+            "placeholder" : "이름 입력",
+            'readonly' : 'readonly'
+        })
+    )
+    dept_name = forms.CharField(
+        label="부서 이름",
+        widget = forms.TextInput(attrs={
+            "placeholder" : "부서 이름"
+        })
+    )
+    rank = forms.CharField(
+        label="직급",
+        widget = forms.TextInput(attrs={
+            "placeholder" : "직급"
+        })
+    )
+    email = forms.EmailField(
+        label="이메일",
+        widget = forms.EmailInput(attrs={
+            "placeholder" : "이메일 입력",
+            'readonly' : 'readonly'
+        })
+
+    )
     class Meta:
         model = get_user_model()
         fields = ['username','name','email','dept_name','rank','gender',]
