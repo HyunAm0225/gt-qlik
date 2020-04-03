@@ -1,13 +1,21 @@
 {% extends 'base.html' %}
-
 {% block content %}
+
+{% if error %}
+{{ error }}
+<br>
+<br>
+{% endif %}
+
+
 <div class="container p-5 my-5 rounded-lg shadow-lg" id="loginbox">
 	<h1 class="text-center">로그인</h1>
 	<br>
-	<form method="post" action="#">
+	<form method="post" action="{% url 'login' %}">
+	{% csrf_token %}	
 	<div class="row">
 		<div class="col-sm-3"><h2 class="text-right">아이디</h2></div>
-		<div class="col-sm-6"><input type="text" class="form-control form-control-lg rounded-pill" placeholder="ID를 입력하시오." name="userID"></div>
+		<div class="col-sm-6"><input type="text" class="form-control form-control-lg rounded-pill" placeholder="ID를 입력하시오." name="username"></div>
 		<div class="col-sm-3"></div>
     </div>
     <div class="row">
@@ -17,7 +25,7 @@
     </div>
 	<div class="row">
 		<div class="col-sm-3"><h2 class="text-right">비밀번호</h2></div>
-		<div class="col-sm-6"><input type="password" class="form-control form-control-lg rounded-pill" placeholder="PW를 입력하시오." name = "userPassword"></div>
+		<div class="col-sm-6"><input type="password" class="form-control form-control-lg rounded-pill" placeholder="PW를 입력하시오." name = "password"></div>
 		<div class="col-sm-3"></div>
 	</div>
 	<br>
@@ -33,8 +41,8 @@
     </div>
 	<div class="row">
         <div class="col-sm-3"></div>
-        <div class="col-sm-3"><input type="submit" class="btn btn-primary form-control rounded-pill" value="비밀번호 찾기"></div>
-        <div class="col-sm-3"><input type="submit" class="btn btn-primary form-control rounded-pill" value="등록"></div>
+        <div class="col-sm-3"><a><button type="button" class="btn btn-primary form-control rounded-pill">비밀번호 찾기</button></a></div>
+        <div class="col-sm-3"><a href = "{% url 'signup' %}"><button type="button" class="btn btn-primary form-control rounded-pill">등록</button></a></div>
         <div class="col-sm-3"></div>
         </div>	
 	</form>

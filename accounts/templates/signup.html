@@ -10,17 +10,17 @@
 	 {% csrf_token %}
 	<div class="container">
 		<div class="row">
-			<div class="col">
+			<div class="col-3">
 				<h1></h1>
 			</div>
-			<div class="col">
+			<div class="col-6">
 				 {% bootstrap_form form %}
 				 <div class="float-right">
 					<button type ="submit" class="btn btn-primary">가입</button>
 					<a href="{% url 'home' %}"><button type = "button" class="btn btn-danger">취소</button></a>
 				</div>
 			</div>
-			<div class="col">
+			<div class="col-3">
 				<button type ="submit" class="btn btn-dark">중복확인</button>			
 			</div>
 		</div>
