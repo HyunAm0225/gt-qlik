@@ -26,7 +26,7 @@
               <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
+              <a class="nav-link" href="#">설정</a>
             </li>
           </ul>
           <!-- 로그인 성공시(시작) -->
@@ -45,12 +45,12 @@
               </div>
           </li> -->
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="{% url 'signup' %}" class="btn btn-outline-success disabled"><span class="fas fa-user"></span>&nbsp;{{ user.name }} 님</a></li>
+            <li><a href="{% url 'update' %}" class="btn btn-outline-success"><span class="fas fa-user"></span>&nbsp;{{ user.name }} 님</a></li>
             <li>&nbsp;&nbsp;&nbsp;</li>
-            <!-- <li><a href="{% url 'logout' %}" class="btn btn-outline-success"><span class="fas fa-sign-in-alt"></span>&nbsp;로그아웃</a></li> -->
-            <form id="logout" method="POST" action="">
+            <li><a href="{% url 'logout' %}" class="btn btn-outline-success"><span class="fas fa-sign-in-alt"></span>&nbsp;로그아웃</a></li>
+            <!-- <form id="logout" method="POST" action="">
               {% csrf_token %} <input type="button" class="btn btn-outline-success" value="로그아웃"/>
-            </form>
+            </form> -->
           </ul>  	
           {% else %}
 

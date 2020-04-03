@@ -1,4 +1,5 @@
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth import get_user_model
 from django import forms 
 from .models import User
@@ -56,3 +57,8 @@ class CustomUserCreationform(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super(CustomUserCreationform, self).__init__( *args, **kwargs)
         self.fields['username'].widget.attrs['maxlength'] = 15
+
+class CustomUserCreationform(UserChangeForm):
+    class Meta:
+        model = get_user_model()
+        fields = ['username','name','email','dept_name','rank','gender',]

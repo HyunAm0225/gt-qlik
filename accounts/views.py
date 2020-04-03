@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .forms import CustomUserCreationform
+from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth import login as auth_login
 from django.shortcuts import redirect
 from django.contrib import auth
@@ -32,7 +33,17 @@ def login(request):
         return render(request,'login.html')
 
 def logout(request):
-    if request.method =="POST":
-        auth.logout(request)
-        return redirect('home')
-    return render(request, 'signup.html')
+    # if request.method =="POST":
+    auth.logout(request)
+    return redirect('home')
+    # return render(request, 'login.html')
+
+def update(request):
+    if request.method == "POST":
+        user_change_form = UserChangeForm(request.POST,instance = request.user)
+        if user_change_form.is_valid():
+            user_change_form.save()
+            return redirect('accounts:people',request.user.username)
+    else:
+        user_change_form = CustomUserCreationform(instance = request.user)    
+        return render(request, 'update.html',{'user_change_form':user_change_form})
