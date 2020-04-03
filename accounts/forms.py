@@ -58,7 +58,7 @@ class CustomUserCreationform(UserCreationForm):
         super(CustomUserCreationform, self).__init__( *args, **kwargs)
         self.fields['username'].widget.attrs['maxlength'] = 15
 
-class CustomUserCreationform(UserChangeForm):
+class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = get_user_model()
         fields = ['username','name','email','dept_name','rank','gender',]
