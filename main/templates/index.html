@@ -2,5 +2,10 @@
 
 {% block content %}
 
+{% if user.is_authenticated %}
+<iframe src='https://desktop-cmq34np/single/?appid=961cc50a-b528-4d4a-bb24-f45e3c1df631&sheet=emKctb&lang=ko-KR&opt=currsel%2Cnointeraction&select=clearall' style='border:none;width:1500px;height:1000px;'></iframe>
+<!-- <iframe src='https://desktop-cmq34np/single/?appid=961cc50a-b528-4d4a-bb24-f45e3c1df631&sheet=EdjsyTT&lang=ko-KR&opt=currsel%2Cnointeraction&select=clearall' style='border:none;width:100%;height:100%;'></iframe> -->
+<h1>{{ resp }}</h1>
+{% endif %}
 
 {% endblock %}

@@ -4,6 +4,8 @@ from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth import login as auth_login
 from django.shortcuts import redirect
 from django.contrib import auth
+import requests
+from requests_ntlm import HttpNtlmAuth
 
 # Create your views here.
 def signup(request):
