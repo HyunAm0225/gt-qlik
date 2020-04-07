@@ -12,4 +12,10 @@ def home(request):
         "Content-Type": "application/json",
     }
     resp = requests.get(url,headers=headers)    
-    return render(request, 'index.html',{'resp':resp})
+    apps = resp.json
+    # apps['hdr-usr'] = "DESKTOP-CMQ34NP\\user"
+    # apps['X-Qlik-xrfkey'] = "123456789ABCDEFG"
+    response = render(request, 'index.html',{'resp':resp,'apps':apps})
+    response['hdr-usr'] = "DESKTOP-CMQ34NP\\user"
+    response['X-Qlik-xrfkey'] = "123456789ABCDEFG"
+    return response

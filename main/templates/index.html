@@ -3,9 +3,46 @@
 {% block content %}
 
 {% if user.is_authenticated %}
-<iframe src='https://desktop-cmq34np/single/?appid=961cc50a-b528-4d4a-bb24-f45e3c1df631&sheet=emKctb&lang=ko-KR&opt=currsel%2Cnointeraction&select=clearall' style='border:none;width:1500px;height:1000px;'></iframe>
+<!-- <iframe id = "output-frame-id" src='https://desktop-cmq34np/gt_qlik/single/?appid=961cc50a-b528-4d4a-bb24-f45e3c1df631&sheet=emKctb&lang=ko-KR&opt=currsel%2Cnointeraction&select=clearall' style='border:none;width:1500px;height:1000px;'></iframe> -->
 <!-- <iframe src='https://desktop-cmq34np/single/?appid=961cc50a-b528-4d4a-bb24-f45e3c1df631&sheet=EdjsyTT&lang=ko-KR&opt=currsel%2Cnointeraction&select=clearall' style='border:none;width:100%;height:100%;'></iframe> -->
-<h1>{{ resp }}</h1>
+<h1>테스트 응답 : {{ resp }}</h1>
+<br>
+<iframe id = "mySrc" src='https://desktop-cmq34np/gt_qlik/single/?appid=961cc50a-b528-4d4a-bb24-f45e3c1df631&sheet=emKctb&lang=ko-KR&opt=currsel%2Cnointeraction&select=clearall' style='border:none;width:1500px;height:1000px;'></iframe>
+<button type = "button" id = "click">click</button>
+<script type = "text/javascript">
+
+$('#click').on('click',function(){
+    $.ajax({
+        type : "GET",
+        url : 'https://desktop-cmq34np/gt_qlik/single/?appid=961cc50a-b528-4d4a-bb24-f45e3c1df631&sheet=emKctb&lang=ko-KR&opt=currsel%2Cnointeraction&select=clearall',
+        contentType : "application/json",
+        beforeSend : function(xhr, settings){
+            xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded; cahrset=utf-8");
+            xhr.setRequestHeader("X-Qlik-xrfkey","123456789ABCDEFG");
+            xhr.setRequestHeader("hdr-usr","DESKTOP-CMQ34NP\\user");
+        },
+        success:function(data){
+            var url = 'https://desktop-cmq34np/gt_qlik/single/?appid=961cc50a-b528-4d4a-bb24-f45e3c1df631&sheet=emKctb&lang=ko-KR&opt=currsel%2Cnointeraction&select=clearall'
+            $('#mySrc').attr('src',url);
+        }
+    });
+});
+
+</script>
+
+
+
+
+
 {% endif %}
+
+{% for app in apps %}
+    <h2>App 이름 {{ app.name }}</h2>
+    <h3>App 아이디 {{ app.id }}</h3>
+    <br>
+    <!-- <iframe src = 'https://desktop-cmq34np/gt_qlik/single/?appid={{ app.id }}' style = 'border:none;width:1500px;height:1000px;'></iframe> -->
+{% endfor %}
+
+
 
 {% endblock %}
