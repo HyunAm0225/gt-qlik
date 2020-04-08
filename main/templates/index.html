@@ -5,18 +5,21 @@
 {% if user.is_authenticated %}
 <!-- <iframe id = "output-frame-id" src='https://desktop-cmq34np/gt_qlik/single/?appid=961cc50a-b528-4d4a-bb24-f45e3c1df631&sheet=emKctb&lang=ko-KR&opt=currsel%2Cnointeraction&select=clearall' style='border:none;width:1500px;height:1000px;'></iframe> -->
 <!-- <iframe src='https://desktop-cmq34np/single/?appid=961cc50a-b528-4d4a-bb24-f45e3c1df631&sheet=EdjsyTT&lang=ko-KR&opt=currsel%2Cnointeraction&select=clearall' style='border:none;width:100%;height:100%;'></iframe> -->
-<h1>테스트 응답 : {{ resp }}</h1>
+<h1>테스트 응답 : {{ x }}</h1>
 <br>
-<iframe id = "mySrc" src='https://desktop-cmq34np/gt_qlik/single/?appid=961cc50a-b528-4d4a-bb24-f45e3c1df631&sheet=emKctb&lang=ko-KR&opt=currsel%2Cnointeraction&select=clearall' style='border:none;width:1500px;height:1000px;'></iframe>
+<iframe id = "mySrc" src='https://desktop-cmq34np/gt_qlik/hub' style='border:none;width:1500px;height:1000px;'></iframe>
 <button type = "button" id = "click">click</button>
 <script type = "text/javascript">
 
 $('#click').on('click',function(){
     $.ajax({
-        type : "GET",
+        type : "jsonp",
         url : 'https://desktop-cmq34np/gt_qlik/single/?appid=961cc50a-b528-4d4a-bb24-f45e3c1df631&sheet=emKctb&lang=ko-KR&opt=currsel%2Cnointeraction&select=clearall',
         contentType : "application/json",
         beforeSend : function(xhr, settings){
+            xhr.setRequestHeader("Access-Control-Allow-Origin","*");
+            xhr.setRequestHeader("Access-Control-Allow-Methods","GET,POST,PUT,DELETE,OPTIONS");
+            xhr.setRequestHeader("Access-Control-Max-Age","Origin,Accept,X-Requested-With,Content-Type,Access-Control-Request-Method,Access-Control-Request-Headers,Authorization");
             xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded; cahrset=utf-8");
             xhr.setRequestHeader("X-Qlik-xrfkey","123456789ABCDEFG");
             xhr.setRequestHeader("hdr-usr","DESKTOP-CMQ34NP\\user");
@@ -27,6 +30,8 @@ $('#click').on('click',function(){
         }
     });
 });
+
+
 
 </script>
 
