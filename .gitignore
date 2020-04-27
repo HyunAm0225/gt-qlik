@@ -126,3 +126,5 @@ dmypy.json
 *.crf
 *.cer
 *.pfx
+
+secret.json

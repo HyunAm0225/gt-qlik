@@ -7,29 +7,32 @@ import os
 
 def home(request):
     requests.packages.urllib3.disable_warnings()
-    url = 'http://desktop-cmq34np/gt_qlik/qrs/app/full?xrfkey=123456789ABCDEFG'
-    login_url = 'https://localhost:4243/qps/gt_qlik/session?Xrfkey=123456789ABCDEFG'
-    xrf = '123456789ABCDEFG'
-    headers = {'X-Qlik-xrfkey': xrf,
-        "Content-Type": "application/json",
-        "X-Qlik-User":"DESKTOP-CMQ34NP\\user",
-        "Accept": "application/json",
-        "hdr-usr": "DESKTOP-CMQ34NP\\user",
-        "Content-Type": "application/json",
-        "Connection": "Keep-Alive",
-        "User-Agent": "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36"
-    }
-    cert = ('client.pem','client_key.pem')
+    url = "https://localhost:4243/qps/qlik_ticket/ticket?Xrfkey=abcdefghijklmnop"
     
-    session = requests.Session()
-    session.auth = HttpNtlmAuth('desktop-cmq34np\\user','dktlqkf12', session)
-    x = session.get(url, verify=False, headers = headers)
-    resp = requests.get(login_url, headers=headers, verify=False, cert=cert)
+    # 인증서 경로
+    _client = os.path.join(os.path.dirname(__file__),'client.pem')
+    _client_key = os.path.join(os.path.dirname(__file__),'client_key.pem')
+    cert = (_client,_client_key)
+    
+    payload = "\r\n{\r\n  \"UserDirectory\": \"desktop-cmq34np\",\r\n  \"UserId\": \"user\"\r\n}"
+    headers = {
+    'x-Qlik-Xrfkey': 'abcdefghijklmnop',
+    'Content-Type': 'application/json'
+    }
 
-    # resp = requests.get(url,headers=headers)    
-    # apps = resp.json
-    apps = x.json
-    response = render(request, 'index.html',{'x':x,'apps':apps,'resp':resp})
-    response['hdr-usr'] = "DESKTOP-CMQ34NP\\user"
-    response['X-Qlik-xrfkey'] = "123456789ABCDEFG"
-    return response
+    response = requests.request("POST", url, headers=headers, data = payload, cert=cert, verify=False)
+    # print(response.json()['Ticket'])
+    qlik_ticket = response.json()['Ticket']
+
+    url = "https://DESKTOP-CMQ34NP/qlik_ticket/qrs/about?Xrfkey=abcdefghijklmnop&Qlikticket={}".format(qlik_ticket)
+
+    payload_sess  = {}
+    headers_sess = {
+      'x-Qlik-Xrfkey': 'abcdefghijklmnop'
+    }
+
+    response = requests.request("GET", url, headers=headers_sess, data = payload_sess, cert=cert, verify=False)
+
+    ticket_session =  response.cookies['X-Qlik-Session-ticket']
+
+    return render(request, 'index.html',{'qlik_ticket':qlik_ticket,'ticket_session':ticket_session})
