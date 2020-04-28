@@ -17,7 +17,7 @@ def login_message_required(function):
 # 관리자 권한 확인
 def admin_required(function):
     def wrap(request,*args,**kwargs):
-        if request.user.level == '1' or request.user.level == '0':
+        if request.user.rank == '관리자' or request.user.rank == '개발자':
             return function(request,*args,**kwargs)
         messages.info(request,"접근 권한이 없습니다.")
         # 수정 해야함

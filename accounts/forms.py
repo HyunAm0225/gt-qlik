@@ -1,5 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import UserChangeForm
+from django.contrib.auth.forms import SetPasswordForm
+
 from django.contrib.auth import get_user_model
 from django import forms 
 from .models import User
@@ -96,3 +98,48 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = get_user_model()
         fields = ['username','name','email','dept_name','rank','gender',]
+
+
+# 비밀번호 찾기
+class RecoveryPwForm(forms.Form):
+    username = forms.CharField(
+        widget=forms.TextInput,)
+    name = forms.CharField(
+        widget=forms.TextInput,)
+    email = forms.EmailField(
+        widget=forms.EmailInput,)
+
+    class Meta:
+        fields = ['username', 'name', 'email']
+
+    def __init__(self, *args, **kwargs):
+        super(RecoveryPwForm, self).__init__(*args, **kwargs)
+        self.fields['username'].label = '아이디'
+        self.fields['username'].widget.attrs.update({
+            'class': 'form-control',
+            'id': 'pw_form_id',
+        })
+        self.fields['name'].label = '이름'
+        self.fields['name'].widget.attrs.update({
+            'class': 'form-control',
+            'id': 'pw_form_name',
+        })
+        self.fields['email'].label = '이메일'
+        self.fields['email'].widget.attrs.update({
+            'class': 'form-control',
+            'id': 'pw_form_email',
+        })
+
+# 인증번호 입력 후 사용자의 비밀번호 변경
+class CustomSetPasswordForm(SetPasswordForm):
+    def __init__(self, *args, **kwargs):
+        super(CustomSetPasswordForm, self).__init__(*args, **kwargs)
+        self.fields['new_password1'].label = '새 비밀번호'
+        self.fields['new_password1'].widget.attrs.update({
+            'class': 'form-control',
+        })
+        self.fields['new_password2'].label = '새 비밀번호 확인'
+        self.fields['new_password2'].widget.attrs.update({
+            'class': 'form-control',
+        })
+
