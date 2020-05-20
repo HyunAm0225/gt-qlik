@@ -96,7 +96,7 @@ def ajax_find_pw_view(request):
                 'auth_num': auth_num,
             }),
         )
-    return HttpResponse(json.dumps({"result": target_user.name}, cls=DjangoJSONEncoder), content_type = "application/json")
+    return HttpResponse(json.dumps({"result": target_user.username}, cls=DjangoJSONEncoder), content_type = "application/json")
 
 # 인증번호 확인
 def auth_confirm_view(request):
