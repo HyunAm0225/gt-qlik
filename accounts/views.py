@@ -106,6 +106,8 @@ def auth_confirm_view(request):
     target_user.auth = ""
     target_user.save()
     request.session['auth'] = target_user.username  
+    print("타겟 유저", target_user)
+    print("인증번호",input_auth_num)
     
     return HttpResponse(json.dumps({"result": target_user.username}, cls=DjangoJSONEncoder), content_type = "application/json")
 
