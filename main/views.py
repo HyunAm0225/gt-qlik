@@ -2,9 +2,11 @@ from django.shortcuts import render
 import requests
 from requests_ntlm import HttpNtlmAuth
 import os
+from accounts.decorators import *
+# from deco import *
 
 # Create your views here.
-
+@login_message_required
 def home(request):
     requests.packages.urllib3.disable_warnings()
     url = "https://localhost:4243/qps/qlik_ticket/ticket?Xrfkey=abcdefghijklmnop"

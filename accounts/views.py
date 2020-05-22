@@ -44,7 +44,8 @@ def login(request):
             auth_login(request, user)
             return redirect('home')
         else:
-            return render(request, 'login.html',{'error': 'username or password is incorrect.'})
+            
+            return render(request, 'login.html',{'error': '아이디가 없거나 비밀번호가 틀립니다.'})
     else: 
         return render(request,'login.html')
 
