@@ -3,17 +3,16 @@
 {% block content %}
 
 {% if user.is_authenticated %}
-
+    <!-- {{ qlik_ticket }} -->
     <iframe src = 'https://localhost/qlik_ticket/hub/?qlikTicket={{ qlik_ticket }}' style = 'border:none;width:1500px;height:1000px;'></iframe>
-
+    <!-- url = https://localhost/qlik_ticket/hub/?qlikTicket={{ qlik_ticket }} -->
 {% endif %}
-<h1> 요청 세션 값 : {{ ticket_session }}</h1>
+<!-- <h1> 요청 세션 값 : {{ ticket_session }}</h1> -->
 
 {% for app in apps %}
     <h2>App 이름 {{ app.name }}</h2>
     <h3>App 아이디 {{ app.id }}</h3>
     <br>
-    <!-- <iframe src = 'https://desktop-cmq34np/gt_qlik/single/?appid={{ app.id }}' style = 'border:none;width:1500px;height:1000px;'></iframe> -->
 {% endfor %}
 
 

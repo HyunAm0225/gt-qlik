@@ -1,26 +1,24 @@
-from django.shortcuts import render
-from .forms import CustomUserCreationform, CustomUserChangeForm, RecoveryPwForm, CustomSetPasswordForm
-from django.contrib.auth.forms import UserChangeForm
-from django.contrib.auth import login as auth_login
-from django.shortcuts import redirect
-from django.contrib import auth
-from django.core.serializers.json import DjangoJSONEncoder
-from requests_ntlm import HttpNtlmAuth
-from .helper import email_auth_num, send_mail
-from .models import User
-from django.http import HttpResponse
-from django.template.loader import render_to_string, get_template   
-from django.core.exceptions import PermissionDenied
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
-from django.views.generic import View
-
-
-from .decorators import *
-import requests
 import json
 
+import requests
+from django.contrib import auth, messages
+from django.contrib.auth import login as auth_login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserChangeForm
+from django.core.exceptions import PermissionDenied
+from django.core.serializers.json import DjangoJSONEncoder
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
+from django.template.loader import get_template, render_to_string
+from django.utils.decorators import method_decorator
+from django.views.generic import View
+from requests_ntlm import HttpNtlmAuth
+
+from .decorators import *
+from .forms import (CustomSetPasswordForm, CustomUserChangeForm,
+                    CustomUserCreationform, RecoveryPwForm)
+from .helper import email_auth_num, send_mail
+from .models import User
 
 
 # Create your views here.
@@ -43,12 +41,14 @@ def login(request):
         password = request.POST['password']
         user = auth.authenticate(request, username = username, password = password)
         if user is not None:
-            auth.login(request,user)
+            auth_login(request, user)
             return redirect('home')
         else:
             return render(request, 'login.html',{'error': 'username or password is incorrect.'})
     else: 
         return render(request,'login.html')
+
+
 
 def logout(request):
     # if request.method =="POST":
@@ -106,8 +106,8 @@ def auth_confirm_view(request):
     target_user.auth = ""
     target_user.save()
     request.session['auth'] = target_user.username  
-    print("타겟 유저", target_user)
-    print("인증번호",input_auth_num)
+    # print("타겟 유저", target_user)
+    # print("인증번호",input_auth_num)
     
     return HttpResponse(json.dumps({"result": target_user.username}, cls=DjangoJSONEncoder), content_type = "application/json")
 
@@ -120,8 +120,11 @@ def auth_pw_reset_view(request):
 
     if request.method == 'POST':
         session_user = request.session['auth']
-        current_user = User.objects.get(user_id=session_user)
-        login(request, current_user)
+        # current_user = User.objects.get(user_id=session_user)
+        current_user = User.objects.get(username=session_user)
+        # print("현재 유저",current_user)
+        auth_login(request, current_user)
+        # login(request, user)
 
         reset_password_form = CustomSetPasswordForm(request.user, request.POST)
         
