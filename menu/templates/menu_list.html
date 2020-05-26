@@ -20,7 +20,7 @@
         <tbody>
             {% if menu_list %}
             {% for menu in menu_list %}
-            <tr class="text-center">
+            <tr class="text-center" onclick="location.href='/menu/{{ menu.id }}/'">
                 <td>{{ menu.menu_rank }}</td>
                 <td>{{ menu.title|truncatechars:30 }}</td>
                 <td>{{ menu.url }}</td>

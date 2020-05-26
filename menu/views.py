@@ -3,6 +3,7 @@ from django.views.generic import ListView
 from .models import Menu
 from accounts.decorators import *
 from django.utils.decorators import method_decorator
+from django.shortcuts import get_object_or_404
 # Create your views here.
 
 @method_decorator(login_message_required, name='dispatch')
@@ -33,3 +34,11 @@ def get_context_data(self,**kwargs):
     context['page_range'] = page_range
 
     return context
+
+@login_message_required
+def menu_detail_view(request,pk):
+    menu = get_object_or_404(Menu,pk=pk)
+    context = {
+        'menu' : menu,
+    }
+    return render(request, 'menu_detail.html',context)

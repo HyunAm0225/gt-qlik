@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    #maintable{
+        margin-top:3rem;
+    }
+</style>
+<div class="container" id="maintable">
+    <div class="card">
+        <div class="card-header">
+            <strong>{{ menu.title }}</strong>
+            <span class="float-right">작성일시 : {{ menu.registered_date|date:'Y.m.d. H:i' }}</span>
+        </div>
+        <div class="card-body">
+            
+        </div>
+    </div>
+</div>
+{% endblock %}
