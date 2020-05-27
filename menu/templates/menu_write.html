@@ -29,6 +29,8 @@
             {% bootstrap_form form %}
         </div>
         <div class="card-footer">
+            <a type="submit" href = "{% url 'menu:menu_list' %}"class="btn btn-danger float-right">뒤로가기</a>
+            <!-- <span>&nbsp;</span> -->
             <button type="submit" id="write" class="btn btn-primary float-right">작성하기</button>
         </div>
     </div>
