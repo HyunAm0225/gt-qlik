@@ -3,6 +3,8 @@ import requests
 from requests_ntlm import HttpNtlmAuth
 import os
 from accounts.decorators import *
+from menu.models import Menu
+
 # from deco import *
 
 # Create your views here.
@@ -20,16 +22,8 @@ def home(request):
     'Content-Type': 'application/json'
     }
     response = requests.request("POST", url, headers=headers, data = payload, cert=cert, verify=False)
-    # print(response.json()['Ticket'])
-    # print(response.json())
+
     qlik_ticket = response.json()['Ticket']
-    # print(qlik_ticket)
-    # url_sess = "https://DESKTOP-CMQ34NP/qlik_ticket/qrs/about?Xrfkey=abcdefghijklmnop&Qlikticket={}".format(qlik_ticket)
-    # payload_sess  = {}
-    # headers_sess = {
-    #   'x-Qlik-Xrfkey': 'abcdefghijklmnop'
-    # }
-    # response = requests.request("GET", url_sess, headers=headers_sess, data = payload_sess, cert=cert, verify=False)
-    # print(qlik_ticket)
-    # ticket_session =  response.cookies['X-Qlik-Session-ticket']
-    return render(request, 'index.html',{'qlik_ticket':qlik_ticket})
+    menu_list = Menu.objects.filter(writer=request.user).order_by('menu_rank')
+
+    return render(request, 'index.html',{'qlik_ticket':qlik_ticket,'menu_list':menu_list})

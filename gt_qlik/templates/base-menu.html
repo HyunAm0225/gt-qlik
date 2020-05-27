@@ -84,8 +84,28 @@
 
 <body>
  
+  <!-- 숨겨진 메뉴 -->
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    {% if menu_list %}
+    {% for menu in menu_list %}
+      <a class="active" onclick="changeIframeUrl('{{ menu.url }}')">{{ menu.title|truncatechars:30 }}</a>
+    {% endfor %}
+    {% else %}
+        <strong>작성된 메뉴가 없습니다.</strong>
+    {% endif %}
+<!--     
+    <a class="active" onclick="changeIframeUrl('https://localhost/qlik_ticket/sense/app/961cc50a-b528-4d4a-bb24-f45e3c1df631/sheet/PAjjFz/state/analysis')">시트2 </a>
+    <a class="active" onclick="changeIframeUrl('https://localhost/qlik_ticket/sense/app/961cc50a-b528-4d4a-bb24-f45e3c1df631/sheet/emKctb/state/analysis')">시트3 </a>
+    <a class="active" onclick="changeIframeUrl('https://localhost/qlik_ticket/sense/app/961cc50a-b528-4d4a-bb24-f45e3c1df631/sheet/EdjsyTT/state/analysis')">시트4 </a> -->
+  </div>
+
     <!-- nav bar 시작 -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      {% if user.is_authenticated %}
+      <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+      {% endif %}
+      &nbsp;&nbsp;&nbsp;
         <a class="navbar-brand" href="{% url 'home' %}">GTPLUS-QLIK</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>

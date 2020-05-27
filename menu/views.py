@@ -19,7 +19,6 @@ class MenuListView(ListView):
 
     def get_queryset(self):
         menu_list = Menu.objects.filter(writer=self.request.user).order_by('menu_rank')
-        # menu_list = Menu.filter
         return menu_list
 
 def get_context_data(self,**kwargs):

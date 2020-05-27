@@ -1,12 +1,10 @@
-{% extends 'base.html' %}
+{% extends 'base-menu.html' %}
 
 {% block content %}
+<div id="main">
 {% if user.is_authenticated %}
     <!-- {{ qlik_ticket }} -->
-    <a class="btn btn-secondary btn-lg active" onclick="changeIframeUrl('https://localhost/qlik_ticket/sense/app/961cc50a-b528-4d4a-bb24-f45e3c1df631/sheet/rNhsqm/state/analysis')">시트1</a>
-    <a class="btn btn-secondary btn-lg active" onclick="changeIframeUrl('https://localhost/qlik_ticket/sense/app/961cc50a-b528-4d4a-bb24-f45e3c1df631/sheet/PAjjFz/state/analysis')">시트2 </a>
-    <a class="btn btn-secondary btn-lg active" onclick="changeIframeUrl('https://localhost/qlik_ticket/sense/app/961cc50a-b528-4d4a-bb24-f45e3c1df631/sheet/emKctb/state/analysis')">시트3 </a>
-    <a class="btn btn-secondary btn-lg active" onclick="changeIframeUrl('https://localhost/qlik_ticket/sense/app/961cc50a-b528-4d4a-bb24-f45e3c1df631/sheet/EdjsyTT/state/analysis')">시트4 </a>
+    
     <div>
     <iframe id = "sheetframe" src = 'https://localhost/qlik_ticket/hub/?qlikTicket={{ qlik_ticket }}' style = 'border:none;width:1500px;height:1000px;'></iframe>
     </div>
@@ -14,11 +12,7 @@
 {% endif %}
 <!-- <h1> 요청 세션 값 : {{ ticket_session }}</h1> -->
 
-{% for app in apps %}
-    <h2>App 이름 {{ app.name }}</h2>
-    <h3>App 아이디 {{ app.id }}</h3>
-    <br>
-{% endfor %}
+</div>
 <script>
     function changeIframeUrl(url)				
     {
