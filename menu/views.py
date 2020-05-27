@@ -1,9 +1,13 @@
-from django.shortcuts import render
-from django.views.generic import ListView
-from .models import Menu
-from accounts.decorators import *
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.decorators import method_decorator
-from django.shortcuts import get_object_or_404
+from django.views.generic import ListView
+
+from accounts.decorators import *
+from accounts.models import User
+
+from .forms import MenuWriteForm
+from .models import Menu
+
 # Create your views here.
 
 @method_decorator(login_message_required, name='dispatch')
@@ -42,3 +46,24 @@ def menu_detail_view(request,pk):
         'menu' : menu,
     }
     return render(request, 'menu_detail.html',context)
+
+
+@login_message_required
+def menu_write_view(request):
+    if request.method == "POST":
+        form = MenuWriteForm(request.POST)
+        # 아이디 호출
+        # user = request.session['username']
+        # print(user)
+        # username = User.objects.get(username = user)
+
+        if form.is_valid():
+            menu = form.save(commit = False)
+            menu.writer = request.user
+            menu.save()
+        return redirect('menu:menu_list')
+
+    else:
+        form = MenuWriteForm()
+
+    return render(request,"menu_write.html",{'form':form})

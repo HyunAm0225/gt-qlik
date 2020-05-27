@@ -9,5 +9,6 @@ urlpatterns = [
 
     path('',views.MenuListView.as_view(), name='menu_list'),
     path('<int:pk>/',views.menu_detail_view,name='menu_detail'),
+    path('write/', views.menu_write_view,name='menu_write'),
 
 ] 

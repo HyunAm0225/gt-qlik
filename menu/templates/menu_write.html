@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+<style>
+    #maintable{
+        margin-top:3rem;
+    }
+</style>
+<script type="text/javascript">
+    var checkUnload = true;
+    $(window).on('beforeunload', function () {
+        if (checkUnload) return "이 페이지를 벗어나면 작성된 내용은 저장되지 않습니다.";
+    });
+    $("#write").on("click", function () {
+        checkUnload = false;
+        $("submit").submit();
+    });
+</script>
+<form action="" method="POST">
+    {% csrf_token %}
+<div class="container" id="maintable">
+    <div class="card">
+        <div class="card-header">
+            <strong>메뉴 생성</strong>
+        </div>
+        <div class="card-body">
+            <!-- URL : {{ form.url }} -->
+            <!-- 우선순위 : {{ form.menu_rank }} -->
+            {% bootstrap_form form %}
+        </div>
+        <div class="card-footer">
+            <button type="submit" id="write" class="btn btn-primary float-right">작성하기</button>
+        </div>
+    </div>
+    
+</div>
+</form>
+{% endblock %}
