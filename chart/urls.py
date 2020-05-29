@@ -12,4 +12,5 @@ urlpatterns = [
     path('write/', views.chart_write_view,name='chart_write'),
     path('<int:pk>/edit/',views.chart_edit_view,name='chart_edit'),
     path('<int:pk>/delete/',views.chart_delete_view,name='chart_delete'),
+    
 ] 
