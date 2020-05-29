@@ -17,6 +17,3 @@ class User(AbstractUser):
         (GENDER_FEMALE,'여성'),
     )
     gender = models.CharField(max_length = 10, choices=CHOICES_GENDER)
-    
-
-

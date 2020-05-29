@@ -77,7 +77,8 @@ class RecoveryPwView(View):
         if request.method=='GET':
             form = self.recovery_pw(None)
             return render(request, self.template_name, { 'form':form, })
-
+            
+@logout_message_required
 def ajax_find_pw_view(request):
     username = request.POST.get('username')
     name = request.POST.get('name')

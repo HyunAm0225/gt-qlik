@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView
-
+from django.contrib import messages
 from accounts.decorators import *
 from accounts.models import User
 
@@ -42,8 +42,15 @@ def get_context_data(self,**kwargs):
 @login_message_required
 def menu_detail_view(request,pk):
     menu = get_object_or_404(Menu,pk=pk)
+    
+    if request.user == menu.writer:
+        menu_auth = True
+    else:
+        menu_auth = False
+    
     context = {
         'menu' : menu,
+        'menu_auth' : menu_auth
     }
     return render(request, 'menu_detail.html',context)
 
@@ -52,11 +59,6 @@ def menu_detail_view(request,pk):
 def menu_write_view(request):
     if request.method == "POST":
         form = MenuWriteForm(request.POST)
-        # 아이디 호출
-        # user = request.session['username']
-        # print(user)
-        # username = User.objects.get(username = user)
-
         if form.is_valid():
             menu = form.save(commit = False)
             menu.writer = request.user
@@ -67,3 +69,43 @@ def menu_write_view(request):
         form = MenuWriteForm()
 
     return render(request,"menu_write.html",{'form':form})
+
+# 메뉴 수정
+
+@login_message_required
+def menu_edit_view(request, pk):
+    menu = Menu.objects.get(id=pk)
+
+    if request.method == "POST":
+        if(menu.writer == request.user):
+            form = MenuWriteForm(request.POST,instance = menu)
+            if form.is_valid():
+                menu = form.save(commit = False)
+                menu.save()
+                messages.success(request,"수정되었습니다.")
+                return redirect('/menu/'+str(pk))
+    else:
+        menu = Menu.objects.get(id=pk)
+        if menu.writer == request.user:
+            form = MenuWriteForm(instance = menu)
+            context = {
+                'form':form,
+                'edit':'수정하기',
+            }
+            return render(request, "menu_write.html",context)
+        else:
+            messages.error(request,"본인 메뉴가 아닙니다.")
+            return redirect('/menu/'+str(pk))
+
+# 메뉴 삭제
+
+@login_message_required
+def menu_delete_view(request,pk):
+    menu = Menu.objects.get(id=pk)
+    if menu.writer == request.user:
+        menu.delete()
+        messages.success(request,"삭제되었습니다.")
+        return redirect('/menu/')
+    else:
+        messages.error(request, "본인 메뉴가 아닙니다.")
+        return redirect('/menu/'+str(pk))

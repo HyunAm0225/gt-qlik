@@ -4,20 +4,19 @@
 <div id="main">
 {% if user.is_authenticated %}
     <!-- {{ qlik_ticket }} -->
-    
     <div>
     <iframe id = "sheetframe" src = 'https://localhost/qlik_ticket/hub/?qlikTicket={{ qlik_ticket }}' style = 'border:none;width:1500px;height:1000px;'></iframe>
     </div>
-    <!-- url = https://localhost/qlik_ticket/hub/?qlikTicket={{ qlik_ticket }} -->
 {% endif %}
 <!-- <h1> 요청 세션 값 : {{ ticket_session }}</h1> -->
 
 </div>
 <script>
+    
+
     function changeIframeUrl(url)				
     {
-        document.getElementById("sheetframe").src = url;
-        //alert("tet");
+        document.getElementById("sheetframe").src = url;   
     }
 
 </script>

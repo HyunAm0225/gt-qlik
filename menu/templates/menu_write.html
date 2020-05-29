@@ -6,16 +6,6 @@
         margin-top:3rem;
     }
 </style>
-<script type="text/javascript">
-    var checkUnload = true;
-    $(window).on('beforeunload', function () {
-        if (checkUnload) return "이 페이지를 벗어나면 작성된 내용은 저장되지 않습니다.";
-    });
-    $("#write").on("click", function () {
-        checkUnload = false;
-        $("submit").submit();
-    });
-</script>
 <form action="" method="POST">
     {% csrf_token %}
 <div class="container" id="maintable">
@@ -29,12 +19,27 @@
             {% bootstrap_form form %}
         </div>
         <div class="card-footer">
-            <a type="submit" href = "{% url 'menu:menu_list' %}"class="btn btn-danger float-right">뒤로가기</a>
+            <a type="submit" href = "{% url 'menu:menu_list' %}"class="btn btn-secondary float-right">메뉴 목록</a>
             <!-- <span>&nbsp;</span> -->
+            {% if edit %}
+            <button type="submit" id="write" class="btn btn-primary float-right">{{ edit }}</button>
+            {% else %}
             <button type="submit" id="write" class="btn btn-primary float-right">작성하기</button>
+            {% endif %}
         </div>
     </div>
     
 </div>
 </form>
+
+<script type="text/javascript">
+    var checkUnload = true;
+    $(window).on('beforeunload', function () {
+        if (checkUnload) return "이 페이지를 벗어나면 작성된 내용은 저장되지 않습니다.";
+    });
+    $("#write").on("click", function () {
+        checkUnload = false;
+        $("submit").submit();
+    });
+</script>
 {% endblock %}

@@ -8,12 +8,52 @@
 <div class="container" id="maintable">
     <div class="card">
         <div class="card-header">
-            <strong>{{ menu.title }}</strong>
+            <strong>우선순위 : {{ menu.menu_rank }} </strong>
             <span class="float-right">작성일시 : {{ menu.registered_date|date:'Y.m.d. H:i' }}</span>
         </div>
         <div class="card-body">
+           <h2>메뉴 이름 : {{ menu.title }}</h2>
+           <br>
+           <h5>메뉴 URL : {{ menu.url }} </h5>
+           <iframe id = "sheetframe" src = '{{ menu.url }}'style="height:700px; width:100%;"></iframe> 
+
+        </div>:
+        <div class="card-footer">
+
+            <button class="btn btn-warning float-right" onclick="location.href='/menu/{{ menu.id }}/edit/'">수정</button>
             
+            <button class="btn btn-danger float-right" data-toggle = "modal" data-target="#delete_modal">삭제</button>
+
+            <a type="submit" href = "{% url 'menu:menu_list' %}"class="btn btn-secondary float-right">메뉴 목록</a>    
+
         </div>
     </div>
 </div>
+
+
+<div id="delete_modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">삭제경고</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>메뉴를 삭제하시겠습니까?</p>
+            </div>
+            <div class="modal-footer">
+                <button onclick="delete_modal()" type="button" class="btn btn-danger">삭제하기</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal">취소하기</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function delete_modal() {
+        location.replace('/menu/{{ menu.id }}/delete/');
+    }
+</script>
 {% endblock %}
