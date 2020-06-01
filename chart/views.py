@@ -42,7 +42,7 @@ def get_context_data(self,**kwargs):
 def chart_detail_view(request,pk):
     chart = get_object_or_404(Chart,pk=pk)
     
-    if request.user == chart.writer:
+    if request.user == chart.chart_writer:
         chart_auth = True
     else:
         chart_auth = False
@@ -61,7 +61,7 @@ def chart_write_view(request):
         form = ChartWriteForm(request.POST)
         if form.is_valid():
             chart = form.save(commit = False)
-            chart.writer = request.user
+            chart.chart_writer = request.user
             chart.save()
         return redirect('chart:chart_list')
 
@@ -78,7 +78,7 @@ def chart_edit_view(request, pk):
     chart = Chart.objects.get(id=pk)
 
     if request.method == "POST":
-        if(chart.writer == request.user):
+        if(chart.chart_writer == request.user):
             form = ChartWriteForm(request.POST,instance = chart)
             if form.is_valid():
                 chart = form.save(commit = False)
@@ -87,7 +87,7 @@ def chart_edit_view(request, pk):
                 return redirect('/chart/'+str(pk))
     else:
         chart = Chart.objects.get(id=pk)
-        if chart.writer == request.user:
+        if chart.chart_writer == request.user:
             form = ChartWriteForm(instance = chart)
             context = {
                 'form':form,
@@ -102,10 +102,15 @@ def chart_edit_view(request, pk):
 @login_message_required
 def chart_delete_view(request,pk):
     chart = Chart.objects.get(id=pk)
-    if chart.writer == request.user:
+    if chart.chart_writer == request.user:
         chart.delete()
         messages.success(request,"삭제되었습니다.")
         return redirect('/chart/')
     else:
         messages.error(request, "본인 차트가 아닙니다.")
         return redirect('/chart/'+str(pk))
+
+@login_message_required
+def chart_report(request):
+    chart_list = Chart.objects.filter(chart_writer=request.user).order_by('chart_rank')
+    return render(request,'chart_report.html',{'chart_list':chart_list})

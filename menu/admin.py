@@ -1,9 +1,11 @@
 from django.contrib import admin
 from .models import Menu
+from import_export.admin import ExportActionModelAdmin, ImportExportMixin, ImportMixin
+
 
 # Register your models here.
 
-class MenuAdmin(admin.ModelAdmin):
+class MenuAdmin(ImportExportMixin, admin.ModelAdmin):
     list_display = (
         'menu_rank',
         'writer',

@@ -85,8 +85,40 @@
 
 <body>
  
+  <!-- 숨겨진 메뉴 -->
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="frameGroup">Frame</label>
+        </div>
+        <select class="custom-select" id="frameGroup">
+          <option selected>Frame 선택</option>
+          <option>frame-1</option>
+          <option>frame-2</option>
+          <option>frame-3</option>
+          <option>frame-4</option>
+        </select>
+      </div>
+    {% if chart_list %}
+    {% for chart in chart_list %}
+      <a class="active" onclick="changeIframeUrl('{{ chart.chart_url }}')">{{ chart.chart_title|truncatechars:30 }}</a>
+    {% endfor %}
+    {% else %}
+        <strong>작성된 메뉴가 없습니다.</strong>
+    {% endif %}
+<!--     
+    <a class="active" onclick="changeIframeUrl('https://localhost/qlik_ticket/sense/app/961cc50a-b528-4d4a-bb24-f45e3c1df631/sheet/PAjjFz/state/analysis')">시트2 </a>
+    <a class="active" onclick="changeIframeUrl('https://localhost/qlik_ticket/sense/app/961cc50a-b528-4d4a-bb24-f45e3c1df631/sheet/emKctb/state/analysis')">시트3 </a>
+    <a class="active" onclick="changeIframeUrl('https://localhost/qlik_ticket/sense/app/961cc50a-b528-4d4a-bb24-f45e3c1df631/sheet/EdjsyTT/state/analysis')">시트4 </a> -->
+  </div>
+
     <!-- nav bar 시작 -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      {% if user.is_authenticated %}
+      <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+      {% endif %}
+      &nbsp;&nbsp;&nbsp;
         <a class="navbar-brand" href="{% url 'home' %}">GTPLUS-QLIK</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -130,10 +162,34 @@
       </nav>
       <!-- nav bar 끝 -->
       
-          {% block content %}
-          {% endblock %}
+
+
+    <div class="row" id="main">
+        <div class="col"><iframe id ="frame-1" src="about:blank" style="border: none;width:600px;height:600px;"></iframe></div>
+        <div class="col"><iframe id ="frame-2" src="about:blank" style="border: none;width:600px;height:600px;"></iframe></div>
+        <div class="w-100"></div>
+        <div class="col"><iframe id="frame-3" src="about:blank" style="border: none;width:600px;height:600px;" ></iframe></div>
+        <div class="col"><iframe id="frame-4" src="about:blank" style="border: none;width:600px;height:600px;" ></iframe></div>
+      </div>
+  
 
 </body>
+
+
+<script>
+    
+
+    function changeIframeUrl(url)				
+    {
+        var e = document.getElementById("frameGroup");
+        var select_frame = e.options[e.selectedIndex].text;     
+        document.getElementById(select_frame).src = url;
+        console.log(select_frame)   
+    }
+</script>
+
+
+
 
 </html>
 

@@ -9,13 +9,13 @@
     <div class="card">
         <div class="card-header">
             <strong>우선순위 : {{ chart.chart_rank }} </strong>
-            <span class="float-right">작성일시 : {{ chart.registered_date|date:'Y.m.d. H:i' }}</span>
+            <span class="float-right">작성일시 : {{ chart.chart_register|date:'Y.m.d. H:i' }}</span>
         </div>
         <div class="card-body">
-           <h2>차트 이름 : {{ chart.title }}</h2>
+           <h2>차트 이름 : {{ chart.chart_title }}</h2>
            <br>
-           <h5>차트 URL : {{ chart.url }} </h5>
-           <iframe id = "sheetframe" src = '{{ chart.url }}'style="height:700px; width:100%;"></iframe> 
+           <h5>차트 URL : {{ chart.chart_url }} </h5>
+           <iframe id = "sheetframe" src = '{{ chart.chart_url }}'style="height:700px; width:100%;"></iframe> 
 
         </div>:
         <div class="card-footer">

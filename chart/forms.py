@@ -6,8 +6,8 @@ from .models import Chart
 class ChartWriteForm(forms.ModelForm):
     def __init__(self,*args,**kwargs):
         super(ChartWriteForm, self).__init__(*args,**kwargs)
-        self.fields['title'].label = '차트 이름'
-        self.fields['title'].widget.attrs.update({
+        self.fields['chart_title'].label = '차트 이름'
+        self.fields['chart_title'].widget.attrs.update({
             'placeholder' : '차트 이름',
             'autofocus' : True,
         })
