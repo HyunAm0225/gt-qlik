@@ -16,7 +16,11 @@ def home(request):
     _client = os.path.join(os.path.dirname(__file__),'client.pem')
     _client_key = os.path.join(os.path.dirname(__file__),'client_key.pem')
     cert = (_client,_client_key)
-    payload = "\r\n{\r\n  \"UserDirectory\": \"desktop-cmq34np\",\r\n  \"UserId\": \"user\"\r\n}"
+    username = request.user
+    print(username)
+    payload = f'{{"UserDirectory":"desktop-cmq34np","UserId" :"{username}"}}'
+    print(payload)
+
     headers = {
     'x-Qlik-Xrfkey': 'abcdefghijklmnop',
     'Content-Type': 'application/json'

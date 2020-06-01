@@ -1,4 +1,6 @@
 import json
+import os
+
 
 import requests
 from django.contrib import auth, messages
@@ -40,11 +42,11 @@ def login(request):
         username = request.POST['username']
         password = request.POST['password']
         user = auth.authenticate(request, username = username, password = password)
+
         if user is not None:
             auth_login(request, user)
             return redirect('home')
         else:
-            
             return render(request, 'login.html',{'error': '아이디가 없거나 비밀번호가 틀립니다.'})
     else: 
         return render(request,'login.html')
@@ -52,10 +54,8 @@ def login(request):
 
 
 def logout(request):
-    # if request.method =="POST":
     auth.logout(request)
     return redirect('home')
-    # return render(request, 'login.html')
 
 def update(request):
     if request.method == "POST":

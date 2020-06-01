@@ -107,10 +107,6 @@
     {% else %}
         <strong>작성된 메뉴가 없습니다.</strong>
     {% endif %}
-<!--     
-    <a class="active" onclick="changeIframeUrl('https://localhost/qlik_ticket/sense/app/961cc50a-b528-4d4a-bb24-f45e3c1df631/sheet/PAjjFz/state/analysis')">시트2 </a>
-    <a class="active" onclick="changeIframeUrl('https://localhost/qlik_ticket/sense/app/961cc50a-b528-4d4a-bb24-f45e3c1df631/sheet/emKctb/state/analysis')">시트3 </a>
-    <a class="active" onclick="changeIframeUrl('https://localhost/qlik_ticket/sense/app/961cc50a-b528-4d4a-bb24-f45e3c1df631/sheet/EdjsyTT/state/analysis')">시트4 </a> -->
   </div>
 
     <!-- nav bar 시작 -->
@@ -165,11 +161,11 @@
 
 
     <div class="row" id="main">
-        <div class="col"><iframe id ="frame-1" src="about:blank" style="border: none;width:600px;height:600px;"></iframe></div>
-        <div class="col"><iframe id ="frame-2" src="about:blank" style="border: none;width:600px;height:600px;"></iframe></div>
+        <div class="col"><iframe id ="frame-1" class = "resize-drag" src="about:blank" style="border: none;width:600px;height:600px;"></iframe></div>
+        <div class="col"><iframe id ="frame-2" class = "resize-drag" src="about:blank" style="border: none;width:600px;height:600px;"></iframe></div>
         <div class="w-100"></div>
-        <div class="col"><iframe id="frame-3" src="about:blank" style="border: none;width:600px;height:600px;" ></iframe></div>
-        <div class="col"><iframe id="frame-4" src="about:blank" style="border: none;width:600px;height:600px;" ></iframe></div>
+        <div class="col"><iframe id="frame-3" class = "resize-drag" src="about:blank" style="border: none;width:600px;height:600px;" ></iframe></div>
+        <div class="col"><iframe id="frame-4" class = "resize-drag" src="about:blank" style="border: none;width:600px;height:600px;" ></iframe></div>
       </div>
   
 
@@ -186,9 +182,9 @@
         document.getElementById(select_frame).src = url;
         console.log(select_frame)   
     }
+
+    
 </script>
-
-
 
 
 </html>
