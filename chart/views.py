@@ -17,7 +17,7 @@ class chartListView(ListView):
     context_object_name = 'chart_list'
 
     def get_queryset(self):
-        chart_list = Chart.objects.filter(chart_writer=self.request.user).order_by('chart_rank')
+        chart_list = Chart.objects.order_by('chart_rank')
         return chart_list
 
 def get_context_data(self,**kwargs):
