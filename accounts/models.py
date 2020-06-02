@@ -2,6 +2,9 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 
+# from chart.models import Chart
+# from menu.models import Menu
+
 # Create your models here.
 
 class User(AbstractUser):
@@ -17,3 +20,5 @@ class User(AbstractUser):
         (GENDER_FEMALE,'여성'),
     )
     gender = models.CharField(max_length = 10, choices=CHOICES_GENDER)
+    # chart_cart = models.ManyToManyField('chart.Chart',blank=True)
+    # menu_cart = models.ManyToManyField('menu.Menu',blank=True)

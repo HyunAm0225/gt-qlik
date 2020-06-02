@@ -25,5 +25,6 @@ urlpatterns = [
     path('accounts/',include('accounts.urls')),
     path('menu/',include('menu.urls')),
     path('chart/',include('chart.urls')),
+    path('cart/',include('cart.urls')),
 ] 
 # + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
