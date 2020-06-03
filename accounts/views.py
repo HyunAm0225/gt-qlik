@@ -1,6 +1,6 @@
 import json
 import os
-
+import uuid
 
 import requests
 from django.contrib import auth, messages
@@ -19,7 +19,7 @@ from requests_ntlm import HttpNtlmAuth
 from .decorators import *
 from .forms import (CustomSetPasswordForm, CustomUserChangeForm,
                     CustomUserCreationform, RecoveryPwForm)
-from .helper import email_auth_num, send_mail
+from .helper import email_auth_num, send_mail, cart_num
 from .models import User
 
 
@@ -28,7 +28,10 @@ def signup(request):
     if request.method == 'POST':
         form = CustomUserCreationform(request.POST)
         if form.is_valid():
-            signed_user = form.save()
+            signed_user = form.save(commit=False)
+            cart_id = uuid.uuid4().hex[:10]
+            signed_user.cart_id = cart_id
+            signed_user.save()
             auth_login(request, signed_user)
             return redirect('/')
     else:

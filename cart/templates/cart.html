@@ -30,21 +30,22 @@
             <th>우선순위</th>
             <th>차트이름</th>
             <th>URL</th>
+            <th>삭제</th>
             <!-- <th>작성일시</th> -->
         </tr>
     </thead>
     <tbody>
         {% for cart_item in cart_items %}
-        <tr class="text-center" onclick="location.href='/chart/{{ chart.id }}/'">
+        <tr class="text-center">
         <td>{{ cart_item.chart.chart_rank }}</td>
         <td>{{ cart_item.chart.chart_title|truncatechars:30 }}</td>
         <td>{{ cart_item.chart.chart_url }}</td>
+        <td><a href="{% url 'cart:cart_remove' cart_item.chart.id %}" class="btn btn-outline-danger"><span class="fas fa-trash-alt"></span></a></td>
         <!-- <td>{{ cart_item.date_added|date:'Y.m.d' }}</td> -->
 
         </tr>
     </tbody>
     {% endfor %}
-
 {% endif %}
 
 

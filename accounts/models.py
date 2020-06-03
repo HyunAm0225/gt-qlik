@@ -20,5 +20,6 @@ class User(AbstractUser):
         (GENDER_FEMALE,'여성'),
     )
     gender = models.CharField(max_length = 10, choices=CHOICES_GENDER)
+    cart_id = models.CharField(max_length=15,verbose_name="카트아이디",null=True)
     # chart_cart = models.ManyToManyField('chart.Chart',blank=True)
     # menu_cart = models.ManyToManyField('menu.Menu',blank=True)

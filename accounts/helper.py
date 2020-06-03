@@ -13,6 +13,14 @@ def email_auth_num():
         auth_num += random.choice(string_pool)
     return auth_num
 
+def cart_num():
+    LENGTH = 12
+    string_pool = string.ascii_letters + string.digits
+    cart_num = ""
+    for i in range(LENGTH):
+        cart_num += random.choice(string_pool)
+    return cart_num
+
 class EmailThread(threading.Thread):
     def __init__(self, subject, body, from_email, recipient_list, fail_silently, html):
         self.subject = subject
