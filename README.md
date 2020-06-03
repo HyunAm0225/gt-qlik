@@ -1,5 +1,9 @@
 # qlik sense portal
 
+## 인증 방식
+
+- Qlik Sense와 Django의 인증 방식은 Ticket인증방식을 사용했습니다. 
+
 # App 구성
 
 ## accounts
@@ -17,3 +21,9 @@
 ## menu
 
 - Qlik Sense에서 App안에 있는 sheet를 관리하는 앱 입니다.
+
+## cart
+
+- Qlik Sense에서 만든 Chart를 개인화면에 구현하기 위한 장바구니 입니다. 
+
+

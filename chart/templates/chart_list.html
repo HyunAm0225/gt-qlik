@@ -35,7 +35,9 @@
         </tbody>
     </table>
     <div>
+        {% if user.is_superuser %}
         <a href="{% url 'chart:chart_write' %}" class="btn btn-primary float-right">차트생성</a>
+        {% endif %}
     </div>
     {% if is_paginated %}
     <ul class="paginator">

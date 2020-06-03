@@ -21,7 +21,7 @@ def admin_required(function):
             return function(request,*args,**kwargs)
         messages.info(request,"접근 권한이 없습니다.")
         # 수정 해야함
-        return redirect(settings.MAIN_URL)
+        return redirect('/')
     return wrap
 
 # 비로그인 확인
@@ -30,6 +30,6 @@ def logout_message_required(function):
         if request.user.is_authenticated:
             messages.info(request, "접속중인 사용자입니다.")
             # 수정 해야함
-            return redirect(settings.MAIN_URL)
+            return redirect('/')
         return function(request, *args, **kwargs)
     return wrap

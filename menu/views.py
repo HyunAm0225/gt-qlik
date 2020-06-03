@@ -54,7 +54,7 @@ def menu_detail_view(request,pk):
     }
     return render(request, 'menu_detail.html',context)
 
-
+@admin_required
 @login_message_required
 def menu_write_view(request):
     if request.method == "POST":
@@ -71,7 +71,7 @@ def menu_write_view(request):
     return render(request,"menu_write.html",{'form':form})
 
 # 메뉴 수정
-
+@admin_required
 @login_message_required
 def menu_edit_view(request, pk):
     menu = Menu.objects.get(id=pk)
@@ -98,7 +98,7 @@ def menu_edit_view(request, pk):
             return redirect('/menu/'+str(pk))
 
 # 메뉴 삭제
-
+@admin_required
 @login_message_required
 def menu_delete_view(request,pk):
     menu = Menu.objects.get(id=pk)

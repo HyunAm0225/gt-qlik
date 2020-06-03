@@ -11,7 +11,6 @@ def add_cart(request,chart_id):
         cart = Cart.objects.get(user=request.user, cart_id= request.user.cart_id)
         
     except Cart.DoesNotExist:
-        print("add 카트할때",request.user.cart_id)
         cart = Cart.objects.create(user=request.user, cart_id= request.user.cart_id)
         cart.save()
     try:
@@ -27,7 +26,6 @@ def add_cart(request,chart_id):
 
 def cart_detail(request,cart_items = None):
     try:
-        print("detail 카트할때",request.user.cart_id)
         cart = Cart.objects.get(user=request.user, cart_id= request.user.cart_id)
         cart_items = CartItem.objects.filter(cart=cart, active=True)
     except ObjectDoesNotExist:

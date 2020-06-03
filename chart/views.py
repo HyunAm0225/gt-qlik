@@ -54,7 +54,7 @@ def chart_detail_view(request,pk):
     return render(request, 'chart_detail.html',context)
 
 
-
+@admin_required
 @login_message_required
 def chart_write_view(request):
     if request.method == "POST":
@@ -72,7 +72,7 @@ def chart_write_view(request):
 
 
 # 차트 수정
-
+@admin_required
 @login_message_required
 def chart_edit_view(request, pk):
     chart = Chart.objects.get(id=pk)
@@ -99,6 +99,7 @@ def chart_edit_view(request, pk):
             return redirect('/chart/'+str(pk))    
 
 # 메뉴 삭제
+@admin_required
 @login_message_required
 def chart_delete_view(request,pk):
     chart = Chart.objects.get(id=pk)

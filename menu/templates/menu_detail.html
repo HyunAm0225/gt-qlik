@@ -19,11 +19,11 @@
 
         </div>:
         <div class="card-footer">
-
+            {% if user.is_superuser %}    
             <button class="btn btn-warning float-right" onclick="location.href='/menu/{{ menu.id }}/edit/'">수정</button>
             
             <button class="btn btn-danger float-right" data-toggle = "modal" data-target="#delete_modal">삭제</button>
-
+            {% endif %}
             <a type="submit" href = "{% url 'menu:menu_list' %}"class="btn btn-secondary float-right">메뉴 목록</a>    
 
         </div>
