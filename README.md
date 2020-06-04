@@ -1,5 +1,7 @@
 # qlik sense portal
 
+# 
+
 ## 인증 방식
 
 - Qlik Sense와 Django의 인증 방식은 Ticket인증방식을 사용했습니다. 

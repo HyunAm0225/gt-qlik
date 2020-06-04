@@ -95,10 +95,7 @@
     {% else %}
         <strong>작성된 메뉴가 없습니다.</strong>
     {% endif %}
-<!--     
-    <a class="active" onclick="changeIframeUrl('https://localhost/qlik_ticket/sense/app/961cc50a-b528-4d4a-bb24-f45e3c1df631/sheet/PAjjFz/state/analysis')">시트2 </a>
-    <a class="active" onclick="changeIframeUrl('https://localhost/qlik_ticket/sense/app/961cc50a-b528-4d4a-bb24-f45e3c1df631/sheet/emKctb/state/analysis')">시트3 </a>
-    <a class="active" onclick="changeIframeUrl('https://localhost/qlik_ticket/sense/app/961cc50a-b528-4d4a-bb24-f45e3c1df631/sheet/EdjsyTT/state/analysis')">시트4 </a> -->
+
   </div>
 
     <!-- nav bar 시작 -->
@@ -115,7 +112,7 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item active">
-              <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link"  onclick="changeIframeUrl('https://localhost/qlik_ticket/hub/?qlikTicket={{ qlik_ticket }}')" >Hub</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'menu:menu_list' %}">메뉴 설정</a>
@@ -129,6 +126,12 @@
           {% if user.is_authenticated %}
 
           <ul class="nav navbar-nav navbar-right">
+            {% if user.is_superuser %}
+
+            {% else %}
+            <li><a href="{% url 'cart:cart_detail' %}" class="btn btn-outline-success"><span class="fas fa-shopping-cart">&nbsp;</span>장바구니</a></li>
+            <li>&nbsp;&nbsp;&nbsp;</li>
+            {% endif %}
             <li><a href="{% url 'update' %}" class="btn btn-outline-success"><span class="fas fa-user"></span>&nbsp;{{ user.name }} 님</a></li>
             <li>&nbsp;&nbsp;&nbsp;</li>
             <li><a href="{% url 'logout' %}" class="btn btn-outline-success"><span class="fas fa-sign-in-alt"></span>&nbsp;로그아웃</a></li>
