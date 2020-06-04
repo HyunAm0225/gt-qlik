@@ -1,6 +1,10 @@
 # qlik sense portal
 
+<<<<<<< HEAD
 # 
+=======
+# QMC 설정
+>>>>>>> 6dc71e616b93eca062886063bd501ace4c27b289
 
 ## 인증 방식
 
