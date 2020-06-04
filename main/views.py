@@ -28,6 +28,6 @@ def home(request):
     response = requests.request("POST", url, headers=headers, data = payload, cert=cert, verify=False)
 
     qlik_ticket = response.json()['Ticket']
-    menu_list = Menu.objects.filter(writer=request.user).order_by('menu_rank')
+    menu_list = Menu.objects.order_by('menu_rank')
 
     return render(request, 'index.html',{'qlik_ticket':qlik_ticket,'menu_list':menu_list})

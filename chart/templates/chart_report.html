@@ -101,8 +101,8 @@
         </select>
       </div>
     {% if chart_list %}
-    {% for chart in chart_list %}
-      <a class="active" onclick="changeIframeUrl('{{ chart.chart_url }}')">{{ chart.chart_title|truncatechars:30 }}</a>
+    {% for cartItem in chart_list %}
+      <a class="active" onclick="changeIframeUrl('{{ cartItem.chart.chart_url }}')">{{ cartItem.chart.chart_title|truncatechars:30 }}</a>
     {% endfor %}
     {% else %}
         <strong>작성된 메뉴가 없습니다.</strong>
@@ -137,6 +137,12 @@
           {% if user.is_authenticated %}
 
           <ul class="nav navbar-nav navbar-right">
+            {% if user.is_superuser %}
+
+            {% else %}
+            <li><a href="{% url 'cart:cart_detail' %}" class="btn btn-outline-success"><span class="fas fa-shopping-cart">&nbsp;</span>장바구니</a></li>
+            <li>&nbsp;&nbsp;&nbsp;</li>
+            {% endif %}
             <li><a href="{% url 'update' %}" class="btn btn-outline-success"><span class="fas fa-user"></span>&nbsp;{{ user.name }} 님</a></li>
             <li>&nbsp;&nbsp;&nbsp;</li>
             <li><a href="{% url 'logout' %}" class="btn btn-outline-success"><span class="fas fa-sign-in-alt"></span>&nbsp;로그아웃</a></li>

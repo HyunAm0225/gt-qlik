@@ -1,9 +1,11 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView
+from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
 from accounts.decorators import *
 from accounts.models import User
+from cart.models import Cart, CartItem
 
 from .forms import ChartWriteForm
 from .models import Chart
@@ -112,6 +114,15 @@ def chart_delete_view(request,pk):
         return redirect('/chart/'+str(pk))
 
 @login_message_required
-def chart_report(request):
-    chart_list = Chart.objects.filter(chart_writer=request.user).order_by('chart_rank')
-    return render(request,'chart_report.html',{'chart_list':chart_list})
+# def chart_report(request):
+def chart_report(request,cart_items = None):
+    try:
+        cart = Cart.objects.get(user=request.user, cart_id= request.user.cart_id)
+        chart_list = CartItem.objects.filter(cart=cart, active=True)
+    except ObjectDoesNotExist:
+        pass
+    # chart_list = Chart.objects.filter(chart_writer=request.user).order_by('chart_rank')
+    print(chart_list)
+    return render(request,'chart_report.html',dict(chart_list=chart_list))
+
+    
