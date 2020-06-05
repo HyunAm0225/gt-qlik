@@ -98,6 +98,11 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = get_user_model()
         fields = ['username','name','email','dept_name','rank','gender',]
+    def __init__(self, *args, **kwargs):
+        super(CustomUserChangeForm,self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].help_text = None
+            # self.fields[field].label=''
 
 
 # 비밀번호 찾기
