@@ -6,10 +6,10 @@
 <div>
     <div class="text-center">
         <br>
-        <h1 class="text-center">장바구니에 차트가 없습니다.</h1>
+        <h1 class="text-center">선택한 차트가 없습니다.</h1>
         <br>
         <p class="text-center">
-            다음 링크에서 장바구니를 채워주세요 <a href="{% url 'chart:chart_list' %}">here</a> to continue choice.
+            다음 링크에서 차트를 채워주세요 <a href="{% url 'chart:chart_list' %}">here</a> to continue choice.
         </p>
     </div>
 </div>
@@ -17,8 +17,8 @@
 <div>
     <div class="text_center">
         <br>
-        <h1 class="textcenter">
-            차트 장바구니
+        <h1 class="text-center">
+            차트 목록 
         </h1>
         <br>
     </div>
@@ -42,11 +42,12 @@
         <td>{{ cart_item.chart.chart_url }}</td>
         <td><a href="{% url 'cart:cart_remove' cart_item.chart.id %}" class="btn btn-outline-danger"><span class="fas fa-trash-alt"></span></a></td>
         <!-- <td>{{ cart_item.date_added|date:'Y.m.d' }}</td> -->
-
         </tr>
-    </tbody>
+    </tbody>  
     {% endfor %}
+</table>
 {% endif %}
+<a href="{% url 'chart:chart_report' %}" class="btn btn-primary float-right">자세히 보기</a>
 
 
 {% endblock %}
