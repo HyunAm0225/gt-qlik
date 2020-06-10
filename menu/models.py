@@ -21,4 +21,3 @@ class Menu(models.Model):
         db_table = '화면설정 메뉴'
         verbose_name = '화면설정 메뉴'
         verbose_name_plural = '화면설정 메뉴'
-

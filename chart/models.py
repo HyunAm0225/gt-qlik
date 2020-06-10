@@ -1,6 +1,8 @@
 from django.db import models
 import os
 from django.conf import settings
+from menu.models import Menu
+
 # Create your models here.
 
 class Chart(models.Model):
@@ -9,6 +11,7 @@ class Chart(models.Model):
     chart_title = models.CharField(max_length=128, verbose_name="차트 이름")
     chart_url = models.TextField(verbose_name = "차트 URL")
     chart_register = models.DateTimeField(auto_now=True, verbose_name="등록 시간")
+    sheet_name = models.ForeignKey(Menu, on_delete = models.CASCADE, related_name = 'charts' ,null =True, verbose_name = '시트 이름')
 
     def __str__(self):
         return self.chart_title
