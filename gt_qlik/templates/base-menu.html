@@ -91,10 +91,20 @@
     {% if menu_list %}
     {% for menu in menu_list %}
       <a class="active" onclick="changeIframeUrl('{{ menu.url }}')">{{ menu.title|truncatechars:30 }}</a>
+    <ul>
+      {% if chart_list %}
+        {% for chart in chart_list %}
+          {% if chart.sheet_name|stringformat:"s" == menu.title|stringformat:"s" %}
+          <li><a class="active" style="font-size:15px;" onclick="changeIframeUrl('{{ chart.chart_url }}')">{{ chart.chart_title|truncatechars:30 }}</a></li>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    </ul>
     {% endfor %}
     {% else %}
         <strong>작성된 메뉴가 없습니다.</strong>
     {% endif %}
+
 
   </div>
 

@@ -4,6 +4,7 @@ from requests_ntlm import HttpNtlmAuth
 import os
 from accounts.decorators import *
 from menu.models import Menu
+from chart.models import Chart
 
 # from deco import *
 
@@ -29,5 +30,7 @@ def home(request):
 
     qlik_ticket = response.json()['Ticket']
     menu_list = Menu.objects.order_by('menu_rank')
+    chart_list = Chart.objects.order_by('chart_rank')
+    print(menu_list)
 
-    return render(request, 'index.html',{'qlik_ticket':qlik_ticket,'menu_list':menu_list})
+    return render(request, 'index.html',{'qlik_ticket':qlik_ticket,'menu_list':menu_list,'chart_list':chart_list})
