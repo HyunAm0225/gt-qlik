@@ -97,9 +97,11 @@
             <li class="nav-item active">
               <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
             </li>
+            {% if user.is_superuser %}
             <li class="nav-item">
               <a class="nav-link" href="{% url 'menu:menu_list' %}">시트 리스트</a>
             </li>
+            {% endif %}
             <a class="nav-link" href="{% url 'chart:chart_list' %}">차트 리스트</a>
             <!-- <a class="nav-link" href="{% url 'chart:chart_report' %}">차트 분석</a> -->
           </ul>
