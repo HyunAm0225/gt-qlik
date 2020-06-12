@@ -11,13 +11,13 @@
 <div class="container" id="maintable">
     <div class="card">
         <div class="card-header">
-            <strong>메뉴 생성</strong>
+            <strong>차트 생성</strong>
         </div>
         <div class="card-body">
             {% bootstrap_form form %}
         </div>
         <div class="card-footer">
-            <a type="submit" href = "{% url 'chart:chart_list' %}"class="btn btn-secondary float-right">메뉴 목록</a>
+            <a type="submit" href = "{% url 'chart:chart_list' %}"class="btn btn-secondary float-right">차트 목록</a>
             <!-- <span>&nbsp;</span> -->
             {% if edit %}
             <button type="submit" id="write" class="btn btn-primary float-right">{{ edit }}</button>

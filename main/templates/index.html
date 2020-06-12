@@ -5,7 +5,9 @@
 {% if user.is_authenticated %}
     <!-- {{ qlik_ticket }} -->
     <div>
-    <iframe id = "sheetframe" src = 'https://localhost/qlik_ticket/hub/?qlikTicket={{ qlik_ticket }}' style = 'border:none;width:100%;height:800px;'></iframe>
+    {% for menu in first_menu %}
+    <iframe id = "sheetframe" src = '{{ menu.url }}?qlikTicket={{ qlik_ticket }}' style = 'border:none;width:100%;height:800px;'></iframe>
+    {% endfor %}
     </div>
 {% endif %}
 <!-- <h1> 요청 세션 값 : {{ ticket_session }}</h1> -->

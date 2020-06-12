@@ -14,6 +14,9 @@
                 <th>우선순위</th>
                 <th>차트이름</th>
                 <th>URL</th>
+                {% if user.is_superuser %}
+                <th>작성자</th>
+                {% endif %}
                 <th>작성일시</th>
             </tr>
         </thead>
@@ -24,6 +27,9 @@
                 <td>{{ chart.chart_rank }}</td>
                 <td>{{ chart.chart_title|truncatechars:30 }}</td>
                 <td>{{ chart.chart_url }}</td>
+                {% if user.is_superuser %}
+                <td>{{ chart.chart_writer }}</td>
+                {% endif %}
                 <td>{{ chart.chart_register|date:'Y.m.d'}}</td>
             </tr>
             {% endfor %}
@@ -35,9 +41,7 @@
         </tbody>
     </table>
     <div>
-        {% if user.is_superuser %}
         <a href="{% url 'chart:chart_write' %}" class="btn btn-primary float-right">차트생성</a>
-        {% endif %}
     </div>
     {% if is_paginated %}
     <nav class="Page navigation example">

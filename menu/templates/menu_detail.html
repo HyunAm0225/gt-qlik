@@ -17,7 +17,7 @@
            <h5>메뉴 URL : {{ menu.url }} </h5>
            <iframe id = "sheetframe" src = '{{ menu.url }}'style="height:700px; width:100%;"></iframe> 
 
-        </div>:
+        </div>
         <div class="card-footer">
             {% if user.is_superuser %}    
             <button class="btn btn-warning float-right" onclick="location.href='/menu/{{ menu.id }}/edit/'">수정</button>

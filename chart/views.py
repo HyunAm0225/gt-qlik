@@ -19,7 +19,10 @@ class chartListView(ListView):
     context_object_name = 'chart_list'
 
     def get_queryset(self):
-        chart_list = Chart.objects.order_by('chart_rank')
+        if self.request.user.is_superuser:
+            chart_list = Chart.objects.order_by('chart_rank')
+        else:
+            chart_list = Chart.objects.filter(chart_writer=self.request.user).order_by('chart_rank')
         return chart_list
 
     def get_context_data(self,**kwargs):
@@ -56,7 +59,7 @@ def chart_detail_view(request,pk):
     return render(request, 'chart_detail.html',context)
 
 
-@admin_required
+# @admin_required
 @login_message_required
 def chart_write_view(request):
     if request.method == "POST":
@@ -74,7 +77,7 @@ def chart_write_view(request):
 
 
 # 차트 수정
-@admin_required
+# @admin_required
 @login_message_required
 def chart_edit_view(request, pk):
     chart = Chart.objects.get(id=pk)
@@ -101,7 +104,7 @@ def chart_edit_view(request, pk):
             return redirect('/chart/'+str(pk))    
 
 # 메뉴 삭제
-@admin_required
+# @admin_required
 @login_message_required
 def chart_delete_view(request,pk):
     chart = Chart.objects.get(id=pk)
@@ -122,7 +125,7 @@ def chart_report(request,cart_items = None):
     except ObjectDoesNotExist:
         pass
     # chart_list = Chart.objects.filter(chart_writer=request.user).order_by('chart_rank')
-    print(chart_list)
+    # print(chart_list)
     return render(request,'chart_report.html',dict(chart_list=chart_list))
 
     

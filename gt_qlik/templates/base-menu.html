@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-Frame-Options" content="deny"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE11">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
@@ -90,12 +91,12 @@
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     {% if menu_list %}
     {% for menu in menu_list %}
-      <a class="active" onclick="changeIframeUrl('{{ menu.url }}')">{{ menu.title|truncatechars:30 }}</a>
+      <a class="active" style = "cursor:pointer;" onclick="changeIframeUrl('{{ menu.url }}')">{{ menu.title|truncatechars:30 }}</a>
     <ul>
       {% if chart_list %}
         {% for chart in chart_list %}
           {% if chart.sheet_name|stringformat:"s" == menu.title|stringformat:"s" %}
-          <li><a class="active" style="font-size:15px;" onclick="changeIframeUrl('{{ chart.chart_url }}')">{{ chart.chart_title|truncatechars:30 }}</a></li>
+          <li><a class="active" style="font-size:15px; cursor:pointer;" onclick="changeIframeUrl('{{ chart.chart_url }}')">{{ chart.chart_title|truncatechars:30 }}</a></li>
           {% endif %}
         {% endfor %}
       {% endif %}
@@ -121,12 +122,14 @@
       
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            {% if user.is_superuser %}
             <li class="nav-item active">
-              <a class="nav-link"  onclick="changeIframeUrl('https://localhost/qlik_ticket/hub/?qlikTicket={{ qlik_ticket }}')" >Hub</a>
+              <a class="nav-link" style = "cursor:pointer;"onclick="changeIframeUrl('https://localhost/qlik_ticket/hub/?qlikTicket={{ qlik_ticket }}')" >Hub</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'menu:menu_list' %}">시트 리스트</a>
             </li>
+            {% endif %}
             <a class="nav-link" href="{% url 'chart:chart_list' %}">차트 리스트</a>
             <!-- <a class="nav-link" href="{% url 'chart:chart_report' %}">차트 분석</a> -->
           </ul>
