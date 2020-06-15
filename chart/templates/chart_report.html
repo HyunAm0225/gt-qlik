@@ -152,13 +152,14 @@
   <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     {% if chart_list %}
-    {% for cartItem in chart_list %}
-      <a class="active" data-bind="click: addNewWidget('{{ cartItem.chart.chart_url }}','{{ cartItem.chart.chart_title|truncatechars:30 }}')">{{ cartItem.chart.chart_title|truncatechars:30 }}</a>
+    {% for chart in chart_list %}
+      <a class="active" data-bind="click: addNewWidget('{{ chart.chart_url }}','{{ chart.chart_title|truncatechars:30 }}')">{{ chart.chart_title|truncatechars:30 }}</a>
     {% endfor %}
     {% else %}
         <strong>작성된 메뉴가 없습니다.</strong>
     {% endif %}
     <button class="btn btn-lg btn-danger btn-block" data-bind="click : clearGrid">전체 삭제</a>
+    <button class="btn btn-lg btn-warning btn-block" data-bind="click : saveGrid">저장</a>
   </div>
 
     <!-- nav bar 시작 -->
@@ -167,22 +168,21 @@
       <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
       {% endif %}
       &nbsp;&nbsp;&nbsp;
-        <a class="navbar-brand" href="{% url 'home' %}">GTPLUS-QLIK</a>
+        <a class="navbar-brand" href="{% url 'home' %}">Home</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
       
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class="nav-item active">
-              <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
-            </li>
             {% if user.is_superuser %}
             <li class="nav-item">
               <a class="nav-link" href="{% url 'menu:menu_list' %}">시트 리스트</a>
             </li>
             {% endif %}
             <a class="nav-link" href="{% url 'chart:chart_list' %}">차트 리스트</a>
+            <a class="nav-link" href="{% url 'chart:chart_report' %}">차트 개인화</a>
+
             <!-- <a class="nav-link" href="{% url 'chart:chart_report' %}">차트 분석</a> -->
           </ul>
           <!-- 로그인 성공시(시작) -->
@@ -191,12 +191,6 @@
           {% if user.is_authenticated %}
 
           <ul class="nav navbar-nav navbar-right">
-            {% if user.is_superuser %}
-
-            {% else %}
-            <li><a href="{% url 'cart:cart_detail' %}" class="btn btn-outline-success"><span class="fas fa-shopping-cart">&nbsp;</span>차트 개인화</a></li>
-            <li>&nbsp;&nbsp;&nbsp;</li>
-            {% endif %}
             <li><a href="{% url 'update' %}" class="btn btn-outline-success"><span class="fas fa-user"></span>&nbsp;{{ user.name }} 님</a></li>
             <li>&nbsp;&nbsp;&nbsp;</li>
             <li><a href="{% url 'logout' %}" class="btn btn-outline-success"><span class="fas fa-sign-in-alt"></span>&nbsp;로그아웃</a></li>
@@ -217,7 +211,8 @@
         </div>
       </nav>
       <!-- nav bar 끝 -->
-      <div id = "main" class="jumbotron" data-bind="visible : clearGrid() || true">
+      <!-- <div id = "main" class="jumbotron" data-bind="visible : clearGrid() || true"> -->
+      <div id = "main" class="jumbotron">
         <div data-bind="component: {name: 'dashboard-grid', params: $data}"></div>
       </div>
 
@@ -235,6 +230,7 @@
         document.getElementById(select_frame).src = url;
         console.log(select_frame)   
     }
+
     ko.components.register('dashboard-grid', {
       viewModel: {
         createViewModel: function (controller, componentInfo) {
@@ -305,18 +301,42 @@
       };
 
       this.clearGrid = function(){
-        self.widgets.removeAll();
+        this.widgets.removeAll();
         return false;
       };
-      /*
+      
       this.loadGrid = function(){
-        self.widgets.removeAll();
+        this.widgets.removeAll();
         var items = GridStack.utils.sort(serializedData);
+        this.widgets.batchUpdate();
         items.forEach(function (node){
-          
+          this.widgets.addWidget(
+            '<div class="grid-stack" data-bind="foreach: {data: widgets, afterRender: afterAddWidget}">',
+              '   <div class="grid-stack-item" data-bind="attr: {\'data-gs-x\': $data.x, \'data-gs-y\': $data.y, \'data-gs-width\': $data.width, \'data-gs-height\': $data.height, \'data-gs-auto-position\': $data.auto_position}">',
+              '     <div class="grid-stack-item-content"><a class="float-right" data-bind="click: $root.deleteWidget"><i class="fas fa-times"></i></a><center style="cursor:move;"><h5 data-bind="text: index" /></center><iframe data-bind="attr : {src : url}" style="width:100%;height:90%; border:none;"></iframe></div>',
+              '   </div>',
+              '</div> ',node
+          );
         });
+          this.widgets.commit();
       };
-      */
+
+      this.saveGrid = function(){
+        this.widgets = [];
+        this.widgets.engine.nodes.forEach(function(node){
+          this.widgets.push({
+            x: node.x,
+            y: node.y,
+            width: node.width,
+            height: node.height,
+            auto_position: true,
+            index: node.name,
+            url : node.iframe_url
+          });
+        });
+        document.querySelector('#saved-data').value = JSON.stringify(this.widgets, null, ' ');
+      };
+      
     };
 
 

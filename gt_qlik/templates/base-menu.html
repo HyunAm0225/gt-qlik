@@ -120,7 +120,7 @@
       <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
       {% endif %}
       &nbsp;&nbsp;&nbsp;
-        <a class="navbar-brand" href="{% url 'home' %}">GTPLUS-QLIK</a>
+        <a class="navbar-brand" href="{% url 'home' %}">Home</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -136,7 +136,7 @@
             </li>
             {% endif %}
             <a class="nav-link" href="{% url 'chart:chart_list' %}">차트 리스트</a>
-            <!-- <a class="nav-link" href="{% url 'chart:chart_report' %}">차트 분석</a> -->
+            <a class="nav-link" href="{% url 'chart:chart_report' %}">차트 개인화</a>
           </ul>
           <!-- 로그인 성공시(시작) -->
 
@@ -144,12 +144,6 @@
           {% if user.is_authenticated %}
 
           <ul class="nav navbar-nav navbar-right">
-            {% if user.is_superuser %}
-
-            {% else %}
-            <li><a href="{% url 'cart:cart_detail' %}" class="btn btn-outline-success"><span class="fas fa-shopping-cart">&nbsp;</span>차트 개인화</a></li>
-            <li>&nbsp;&nbsp;&nbsp;</li>
-            {% endif %}
             <li><a href="{% url 'update' %}" class="btn btn-outline-success"><span class="fas fa-user"></span>&nbsp;{{ user.name }} 님</a></li>
             <li>&nbsp;&nbsp;&nbsp;</li>
             <li><a href="{% url 'logout' %}" class="btn btn-outline-success"><span class="fas fa-sign-in-alt"></span>&nbsp;로그아웃</a></li>
@@ -170,10 +164,8 @@
         </div>
       </nav>
       <!-- nav bar 끝 -->
-      
           {% block content %}
           {% endblock %}
-
 </body>
 
 </html>

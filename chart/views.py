@@ -127,13 +127,13 @@ def chart_delete_view(request,pk):
 @login_message_required
 # def chart_report(request):
 def chart_report(request,cart_items = None):
-    try:
-        cart = Cart.objects.get(user=request.user, cart_id= request.user.cart_id)
-        chart_list = CartItem.objects.filter(cart=cart, active=True)
-    except ObjectDoesNotExist:
-        pass
-    # chart_list = Chart.objects.filter(chart_writer=request.user).order_by('chart_rank')
-    # print(chart_list)
+    # try:
+    #     cart = Cart.objects.get(user=request.user, cart_id= request.user.cart_id)
+    #     chart_list = CartItem.objects.filter(cart=cart, active=True)
+    # except ObjectDoesNotExist:
+    #     pass
+    chart_list = Chart.objects.filter(chart_writer=request.user).order_by('chart_rank')
+    print(chart_list)
     return render(request,'chart_report.html',dict(chart_list=chart_list))
 
     
