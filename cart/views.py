@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from chart.models import Chart
 from .models import Cart, CartItem
 from django.core.exceptions import ObjectDoesNotExist
+from menu.models import Menu
 
 
 def add_cart(request,chart_id):
@@ -30,7 +31,9 @@ def cart_detail(request,cart_items = None):
         cart_items = CartItem.objects.filter(cart=cart, active=True)
     except ObjectDoesNotExist:
         pass
-    return render(request,'cart.html',dict(cart_items=cart_items))
+    menu_list = Menu.objects.order_by('menu_rank')
+    chart_list = set(Chart.objects.order_by('chart_rank'))
+    return render(request,'cart.html',dict(cart_items=cart_items, menu_list=menu_list, chart_list=chart_list))
 
 
 def cart_remove(request,chart_id):

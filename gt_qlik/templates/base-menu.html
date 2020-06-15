@@ -57,6 +57,9 @@
         transition: margin-left .5s;
         padding: 16px;
       }
+      #side-menu{
+        transition: margin-left .5s;
+      }
       
       @media screen and (max-height: 450px) {
         .sidenav {padding-top: 15px;}
@@ -69,11 +72,13 @@
       function openNav() {
         document.getElementById("mySidenav").style.width = "250px";
         document.getElementById("main").style.marginLeft = "250px";
+        document.getElementById("side-menu").style.marginLeft = "250px";
       }
       
       function closeNav() {
         document.getElementById("mySidenav").style.width = "0";
         document.getElementById("main").style.marginLeft= "0";
+        document.getElementById("side-menu").style.marginLeft = "0";
         document.body.style.backgroundColor = "white";
       }
       </script>
@@ -110,7 +115,7 @@
   </div>
 
     <!-- nav bar 시작 -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav id = "side-menu" class="navbar navbar-expand-lg navbar-light bg-light">
       {% if user.is_authenticated %}
       <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
       {% endif %}

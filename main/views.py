@@ -30,7 +30,7 @@ def home(request):
 
     qlik_ticket = response.json()['Ticket']
     menu_list = Menu.objects.order_by('menu_rank')
-    chart_list = Chart.objects.order_by('chart_rank')
+    chart_list = set(Chart.objects.order_by('chart_rank'))
 
     first_menu = menu_list[:1]
     # print(first_menu)

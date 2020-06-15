@@ -6,6 +6,9 @@ from django.contrib import messages
 from accounts.decorators import *
 from accounts.models import User
 from cart.models import Cart, CartItem
+from menu.models import Menu
+
+
 
 from .forms import ChartWriteForm
 from .models import Chart
@@ -13,7 +16,7 @@ from .models import Chart
 
 @method_decorator(login_message_required, name='dispatch')
 class chartListView(ListView):
-    model = Chart
+    model = Chart, Menu
     paginate_by = 10
     template_name = 'chart_list.html'
     context_object_name = 'chart_list'
@@ -21,8 +24,10 @@ class chartListView(ListView):
     def get_queryset(self):
         if self.request.user.is_superuser:
             chart_list = Chart.objects.order_by('chart_rank')
+            # print(chart_list)
         else:
             chart_list = Chart.objects.filter(chart_writer=self.request.user).order_by('chart_rank')
+            # print(chart_list)
         return chart_list
 
     def get_context_data(self,**kwargs):
@@ -46,7 +51,8 @@ class chartListView(ListView):
 @login_message_required
 def chart_detail_view(request,pk):
     chart = get_object_or_404(Chart,pk=pk)
-    
+    menu_list = Menu.objects.order_by('menu_rank')
+    chart_list = set(Chart.objects.order_by('chart_rank'))
     if request.user == chart.chart_writer:
         chart_auth = True
     else:
@@ -54,7 +60,9 @@ def chart_detail_view(request,pk):
     
     context = {
         'chart' : chart,
-        'chart_auth' : chart_auth
+        'chart_auth' : chart_auth,
+        'menu_list' : menu_list,
+        'chart_list' : chart_list
     }
     return render(request, 'chart_detail.html',context)
 

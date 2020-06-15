@@ -57,6 +57,9 @@
         transition: margin-left .5s;
         padding: 16px;
       }
+      #side-nav{
+        transition: margin-left .5s;
+      }
       
       @media screen and (max-height: 450px) {
         .sidenav {padding-top: 15px;}
@@ -69,11 +72,13 @@
       function openNav() {
         document.getElementById("mySidenav").style.width = "250px";
         document.getElementById("main").style.marginLeft = "250px";
+        document.getElementById("side-nav").style.marginLeft = "250px";
       }
       
       function closeNav() {
         document.getElementById("mySidenav").style.width = "0";
         document.getElementById("main").style.marginLeft= "0";
+        document.getElementById("side-nav").style.marginLeft= "0";
         document.body.style.backgroundColor = "white";
       }
       </script>
@@ -85,34 +90,40 @@
 </head>
 
 <body>
-<!-- 
+
   <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     {% if menu_list %}
-    {% for menu in menu_list %}
+      {% for menu in menu_list %}
       <a class="active" href="{% url 'home' %}">{{ menu.title|truncatechars:30 }}</a>
-    <ul>
-      {% if chart_list %}
-        {% for chart in chart_list %}
-          {% if chart.sheet_name|stringformat:"s" == menu.title|stringformat:"s" %}
-          <li><a class="active" style="font-size:15px;" href="{% url 'home' %}">{{ chart.chart_title|truncatechars:30 }}</a></li>
-          {% endif %}
-        {% endfor %}
-      {% endif %}
-    </ul>
-    {% endfor %}
+      <ul>
+        {% if chart_list %}
+          {% for chart in chart_list %}
+            {% if chart.sheet_name|stringformat:"s" == menu.title|stringformat:"s" %}
+            <li><a class="active" style="font-size:15px;" href="{% url 'home' %}">{{ chart.chart_title|truncatechars:30 }}</a></li>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      </ul>
+      {% endfor %}
+    {% elif chart_list %}
+      <ul>
+      {% for chart in chart_list %}
+      <li><a class="active" style="font-size:15px;" href="{% url 'home' %}">{{ chart.chart_title|truncatechars:30 }}</a></li>
+      {% endfor %}
+      </ul>
     {% else %}
         <strong>작성된 메뉴가 없습니다.</strong>
     {% endif %}
 
 
-  </div> -->
+  </div>
  
     <!-- nav bar 시작 -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <!-- {% if user.is_authenticated %}
+    <nav id = "side-nav" class="navbar navbar-expand-lg navbar-light bg-light">
+      {% if user.is_authenticated %}
       <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
-      {% endif %} -->
+      {% endif %}
       &nbsp;&nbsp;&nbsp;
         <a class="navbar-brand" href="{% url 'home' %}">GTPLUS-QLIK</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
