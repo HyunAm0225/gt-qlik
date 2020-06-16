@@ -22,11 +22,18 @@ class chartListView(ListView):
     context_object_name = 'chart_list'
 
     def get_queryset(self):
+    # def get_queryset(self,**kwargs):
         if self.request.user.is_superuser:
+            # context=super().get_context_data(**kwargs)
             chart_list = Chart.objects.order_by('chart_rank')
+            # menu_list = Menu.objects.order_by('menu_rank')
+            # context['group'] = zip(chart_list,menu_list)
             # print(chart_list)
         else:
-            chart_list = Chart.objects.filter(chart_writer=self.request.user).order_by('chart_rank')
+            # context=super().get_context_data(**kwargs)
+            chart_list = Chart.objects.filter(chart_writer=self.request.user).order_by('chart_rank')[:6]
+            # menu_list = Menu.objects.order_by('menu_rank')
+            # context['group'] = zip(chart_list,menu_list)
             # print(chart_list)
         return chart_list
 
@@ -70,6 +77,8 @@ def chart_detail_view(request,pk):
 # @admin_required
 @login_message_required
 def chart_write_view(request):
+    if Chart.objects.filter(chart_writer=request.user).count() > 5:
+        return redirect('chart:chart_list')  
     if request.method == "POST":
         form = ChartWriteForm(request.POST)
         if form.is_valid():
@@ -127,13 +136,9 @@ def chart_delete_view(request,pk):
 @login_message_required
 # def chart_report(request):
 def chart_report(request,cart_items = None):
-    # try:
-    #     cart = Cart.objects.get(user=request.user, cart_id= request.user.cart_id)
-    #     chart_list = CartItem.objects.filter(cart=cart, active=True)
-    # except ObjectDoesNotExist:
-    #     pass
-    chart_list = Chart.objects.filter(chart_writer=request.user).order_by('chart_rank')
+    menu_list = Menu.objects.order_by('menu_rank')
+    chart_list = Chart.objects.filter(chart_writer=request.user).order_by('chart_rank')[:6]
     print(chart_list)
-    return render(request,'chart_report.html',dict(chart_list=chart_list))
+    return render(request,'chart_report.html',dict(chart_list=chart_list,menu_list=menu_list))
 
     

@@ -93,10 +93,11 @@
 
   <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    {% if menu_list %}
-      {% for menu in menu_list %}
-      <a class="active" href="{% url 'home' %}">{{ menu.title|truncatechars:30 }}</a>
-      <ul>
+    
+    {% if chart_list %}
+      {% for chart in chart_list %}
+      <a class="active" href="{% url 'home' %}">{{ chart.sheet_name.title|truncatechars:30 }}</a>
+      <!-- <ul>
         {% if chart_list %}
           {% for chart in chart_list %}
             {% if chart.sheet_name|stringformat:"s" == menu.title|stringformat:"s" %}
@@ -104,9 +105,9 @@
             {% endif %}
           {% endfor %}
         {% endif %}
-      </ul>
+      </ul> -->
       {% endfor %}
-    {% elif chart_list %}
+    <!-- {% elif chart_list %}
       <ul>
       {% for chart in chart_list %}
       <li><a class="active" style="font-size:15px;" href="{% url 'home' %}">{{ chart.chart_title|truncatechars:30 }}</a></li>
@@ -114,7 +115,7 @@
       </ul>
     {% else %}
         <strong>작성된 메뉴가 없습니다.</strong>
-    {% endif %}
+    {% endif %} -->
 
 
   </div>
@@ -125,7 +126,7 @@
       <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
       {% endif %}
       &nbsp;&nbsp;&nbsp;
-        <a class="navbar-brand" href="{% url 'home' %}">GTPLUS-QLIK</a>
+        <a class="navbar-brand" href="{% url 'home' %}">Home</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -137,22 +138,14 @@
               <a class="nav-link" href="{% url 'menu:menu_list' %}">시트 리스트</a>
             </li>
             {% endif %}
-            <a class="nav-link" href="{% url 'chart:chart_list' %}">차트 리스트</a>
-            <a class="nav-link" href="{% url 'chart:chart_report' %}">차트 개인화</a>
-            <!-- <a class="nav-link" href="{% url 'chart:chart_report' %}">차트 분석</a> -->
+            <a class="nav-link" href="{% url 'chart:chart_report' %}">개인화 화면</a>
+            <a class="nav-link" href="{% url 'chart:chart_list' %}">개인화 설정</a>
           </ul>
           <!-- 로그인 성공시(시작) -->
 
           
           {% if user.is_authenticated %}
-
           <ul class="nav navbar-nav navbar-right">
-            {% if user.is_superuser %}
-
-            {% else %}
-            <li><a href="{% url 'cart:cart_detail' %}" class="btn btn-outline-success"><span class="fas fa-shopping-cart">&nbsp;</span>차트 개인화</a></li>
-            <li>&nbsp;&nbsp;&nbsp;</li>
-            {% endif %}
             <li><a href="{% url 'update' %}" class="btn btn-outline-success"><span class="fas fa-user"></span>&nbsp;{{ user.name }} 님</a></li>
             <li>&nbsp;&nbsp;&nbsp;</li>
             <li><a href="{% url 'logout' %}" class="btn btn-outline-success"><span class="fas fa-sign-in-alt"></span>&nbsp;로그아웃</a></li>

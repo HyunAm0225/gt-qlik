@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gridstack@1.1.1/dist/gridstack.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/gridstack@1.1.1/dist/gridstack.all.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
 
     <!-- API연결 -->
     <!-- <script src="https://localhost/resources/assets/external/requirejs/require.js"></script> -->
@@ -62,7 +64,9 @@
         transition: margin-left .5s;
         padding: 16px;
       }
-      
+      #bottom-main{
+        transition: margin-left .5s;
+      }
       @media screen and (max-height: 450px) {
         .sidenav {padding-top: 15px;}
         .sidenav a {font-size: 18px;}
@@ -116,11 +120,13 @@
       function openNav() {
         document.getElementById("mySidenav").style.width = "250px";
         document.getElementById("main").style.marginLeft = "250px";
+        document.getElementById("bottom-main").style.marginLeft= "250px";
       }
       
       function closeNav() {
         document.getElementById("mySidenav").style.width = "0";
         document.getElementById("main").style.marginLeft= "0";
+        document.getElementById("bottom-main").style.marginLeft= "0";
         document.body.style.backgroundColor = "white";
       }
 
@@ -148,19 +154,20 @@
 
 <body>
  
-  <!-- 숨겨진 메뉴 -->
   <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    {% if chart_list %}
-    {% for chart in chart_list %}
-      <a class="active" data-bind="click: addNewWidget('{{ chart.chart_url }}','{{ chart.chart_title|truncatechars:30 }}')">{{ chart.chart_title|truncatechars:30 }}</a>
-    {% endfor %}
+    
+    {% if menu_list %}
+      {% for menu in menu_list %}
+      <a class="active" style = "cursor:pointer;" onclick="changeIframeUrl('{{ menu.url }}')" data-toggle="modal" data-target="#sheetmodal">{{ menu.title|truncatechars:30 }}</a>
+      {% endfor %}
     {% else %}
         <strong>작성된 메뉴가 없습니다.</strong>
     {% endif %}
-    <button class="btn btn-lg btn-danger btn-block" data-bind="click : clearGrid">전체 삭제</a>
-    <button class="btn btn-lg btn-warning btn-block" data-bind="click : saveGrid">저장</a>
+
+
   </div>
+
 
     <!-- nav bar 시작 -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -180,8 +187,8 @@
               <a class="nav-link" href="{% url 'menu:menu_list' %}">시트 리스트</a>
             </li>
             {% endif %}
-            <a class="nav-link" href="{% url 'chart:chart_list' %}">차트 리스트</a>
-            <a class="nav-link" href="{% url 'chart:chart_report' %}">차트 개인화</a>
+            <a class="nav-link" href="{% url 'chart:chart_report' %}">개인화 화면</a>
+            <a class="nav-link" href="{% url 'chart:chart_list' %}">개인화 설정</a>
 
             <!-- <a class="nav-link" href="{% url 'chart:chart_report' %}">차트 분석</a> -->
           </ul>
@@ -215,20 +222,39 @@
       <div id = "main" class="jumbotron">
         <div data-bind="component: {name: 'dashboard-grid', params: $data}"></div>
       </div>
-
-      
+        <!-- 숨겨진 메뉴 -->
+    <div id = "bottom-main" class = "w3-bar w3-border w3-black">
+    {% if chart_list %}
+    {% for chart in chart_list %}
+      <a class="w3-bar-item w3-button w3-hover-none w3-text-grey w3-hover-text-white" data-bind="click: addNewWidget('{{ chart.chart_url }}','{{ chart.chart_title|truncatechars:30 }}')">{{ chart.chart_title|truncatechars:30 }}</a>
+    {% endfor %}
+    {% else %}
+        <strong>작성된 메뉴가 없습니다.</strong>
+    {% endif %}
+    <div class="float-right">
+    <button class="w3-bar-item btn btn-lg btn-danger" data-bind="click : clearGrid">전체 삭제</a>
+    <button class="w3-bar-item btn btn-lg btn-warning" data-bind="click : saveGrid">저장</a>
+    </div>
+    </div>
+    <!-- 모달 영역 -->
+    <div class="modal" id="sheetmodal" tabindex="-1" role="dialog" aria-labelledby="sheetmodal" aria-hidden="true">
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="background-color: white;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <iframe id = "sheetframe" src = 'about:blank'style="height:700px; width:100%;"></iframe>
+      </div>
+    </div>
+    
 </body>
 
 
 <script type="text/javascript">
     
 
-    function changeIframeUrl(url)				
+   function changeIframeUrl(url)				
     {
-        var e = document.getElementById("frameGroup");
-        var select_frame = e.options[e.selectedIndex].text;     
-        document.getElementById(select_frame).src = url;
-        console.log(select_frame)   
+        document.getElementById("sheetframe").src = url;   
     }
 
     ko.components.register('dashboard-grid', {
@@ -286,7 +312,7 @@
           x: 0,
           y: 0,
           width: 4,
-          height: 4,
+          height: 5,
           auto_position: true,
           index: name,
           url : iframe_url

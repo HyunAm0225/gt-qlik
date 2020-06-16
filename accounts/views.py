@@ -48,7 +48,11 @@ def login(request):
 
         if user is not None:
             auth_login(request, user)
-            return redirect('home')
+            if user.is_superuser:
+                return redirect('home')
+            else:
+                return redirect('chart:chart_report')
+            # return redirect('home')
         else:
             return render(request, 'login.html',{'error': '아이디가 없거나 비밀번호가 틀립니다.'})
     else: 

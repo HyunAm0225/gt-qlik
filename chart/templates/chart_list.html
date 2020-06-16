@@ -32,6 +32,7 @@
                 {% endif %}
                 <td>{{ chart.chart_register|date:'Y.m.d'}}</td>
             </tr>
+            
             {% endfor %}
             {% else %}
             <tr class="text-center">
@@ -40,9 +41,15 @@
             {% endif %}
         </tbody>
     </table>
+    {% if chart_list|length > 5 %}
+    <div>
+        <a href="{% url 'chart:chart_write' %}" class="btn btn-primary float-right disabled">차트생성</a>
+    </div>
+    {% else %}
     <div>
         <a href="{% url 'chart:chart_write' %}" class="btn btn-primary float-right">차트생성</a>
     </div>
+    {% endif %}
     {% if is_paginated %}
     <nav class="Page navigation example">
         <ul class="pagination justify-content-center">
