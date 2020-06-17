@@ -82,5 +82,23 @@
     </div>
 </div>
 
+    <!-- 모달 영역 -->
+    <div class="modal" id="sheetmodal" tabindex="-1" role="dialog" aria-labelledby="sheetmodal" aria-hidden="true">
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="background-color: white;">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <iframe id = "sheetframe" src = 'about:blank'style="height:700px; width:100%;"></iframe>
+        </div>
+      </div>
+      
+  </body>
+  
+<script type="text/javascript">
+    function changeIframeUrl(url)				
+    {
+        document.getElementById("sheetframe").src = url;   
+    }
+</script>
 
 {% endblock %}

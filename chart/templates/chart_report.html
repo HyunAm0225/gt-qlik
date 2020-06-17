@@ -226,7 +226,7 @@
     <div id = "bottom-main" class = "w3-bar w3-border w3-black">
     {% if chart_list %}
     {% for chart in chart_list %}
-      <a class="w3-bar-item w3-button w3-hover-none w3-text-grey w3-hover-text-white" data-bind="click: addNewWidget('{{ chart.chart_url }}','{{ chart.chart_title|truncatechars:30 }}')">{{ chart.chart_title|truncatechars:30 }}</a>
+      <a class="w3-bar-item w3-button w3-hover-none w3-text-grey w3-hover-text-white" data-bind="click: addNewWidget('{{ chart.chart_url }}?qlikTicket={{ qlik_ticket }}','{{ chart.chart_title|truncatechars:30 }}')">{{ chart.chart_title|truncatechars:30 }}</a>
     {% endfor %}
     {% else %}
         <strong>작성된 메뉴가 없습니다.</strong>

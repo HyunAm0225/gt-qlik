@@ -94,28 +94,13 @@
   <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     
-    {% if chart_list %}
-      {% for chart in chart_list %}
-      <a class="active" href="{% url 'home' %}">{{ chart.sheet_name.title|truncatechars:30 }}</a>
-      <!-- <ul>
-        {% if chart_list %}
-          {% for chart in chart_list %}
-            {% if chart.sheet_name|stringformat:"s" == menu.title|stringformat:"s" %}
-            <li><a class="active" style="font-size:15px;" href="{% url 'home' %}">{{ chart.chart_title|truncatechars:30 }}</a></li>
-            {% endif %}
-          {% endfor %}
-        {% endif %}
-      </ul> -->
+    {% if menu_list %}
+      {% for menu in menu_list %}
+      <a class="active" style = "cursor:pointer;" onclick="changeIframeUrl('{{ menu.url }}')" data-toggle="modal" data-target="#sheetmodal">{{ menu.title|truncatechars:30 }}</a>
       {% endfor %}
-    <!-- {% elif chart_list %}
-      <ul>
-      {% for chart in chart_list %}
-      <li><a class="active" style="font-size:15px;" href="{% url 'home' %}">{{ chart.chart_title|truncatechars:30 }}</a></li>
-      {% endfor %}
-      </ul>
     {% else %}
         <strong>작성된 메뉴가 없습니다.</strong>
-    {% endif %} -->
+    {% endif %}
 
 
   </div>
