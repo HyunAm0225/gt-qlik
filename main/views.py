@@ -33,7 +33,4 @@ def home(request):
     chart_list = set(Chart.objects.order_by('chart_rank'))
 
     first_menu = menu_list[:1]
-    # print(first_menu)
-    # print(menu_list)
-
     return render(request, 'index.html',{'qlik_ticket':qlik_ticket,'menu_list':menu_list,'chart_list':chart_list,'first_menu':first_menu})
