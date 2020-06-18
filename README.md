@@ -29,4 +29,8 @@
 
 - Qlik Sense에서 만든 Chart를 개인화면에 구현하기 위한 장바구니 입니다. 
 
+# 개인화 실행 화면
+
+![Alt Text](https://github.com/HyunAm0225/gt-qlik/blob/master/gif/Qlik-SSO.gif)
+
 
