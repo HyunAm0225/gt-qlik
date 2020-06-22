@@ -21,23 +21,12 @@ class chartListView(ListView):
     template_name = 'chart_list.html'
     context_object_name = 'chart_list'
 
-    def get_queryset(self,**kwargs):
-    # def get_queryset(self,**kwargs):
+    def get_queryset(self):
         if self.request.user.is_superuser:
-            # context=super().get_context_data(**kwargs)
             chart_list = Chart.objects.order_by('chart_rank')
-            # sheet_name_list = Chart.objects.order_by('chart_rank').values('sheet_name')
-            # context['group'] = zip(chart_list,sheet_name_list)
-            # print(chart_list)
         else:
-            # context=super().get_context_data(**kwargs)
             chart_list = Chart.objects.filter(chart_writer=self.request.user).order_by('chart_rank')[:6]
-            # sheet_name_list = Chart.objects.filter(chart_writer=self.request.user).order_by('chart_rank').values('sheet_name')
-            # menu_list = Menu.objects.order_by('menu_rank')
-            # context['group'] = zip(chart_list,sheet_name_list)
-            # print(chart_list)
         return chart_list
-        # return context
 
     def get_context_data(self,**kwargs):
         context = super().get_context_data(**kwargs)

@@ -14,7 +14,7 @@ def login_message_required(function):
         return function(request,*args,**kwargs)
     return wrap
 
-# 관리자 권한 확인
+# 관리자 권한 확인d
 def admin_required(function):
     def wrap(request,*args,**kwargs):
         if request.user.name == '관리자' or request.user.rank == '개발자':

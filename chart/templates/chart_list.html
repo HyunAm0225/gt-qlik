@@ -4,6 +4,8 @@
 <style>
 #maintable{
     margin-top:3rem;
+    transition: margin-left .5s;
+
 }
 </style>
 <div class="container-fluid" id = "maintable">
@@ -11,7 +13,7 @@
     <table class="table table-hover" >
         <thead>
             <tr class="text-center">
-                <th>우선순위</th>
+                <th>번호</th>
                 <th>차트이름</th>
                 <th>URL</th>
                 {% if user.is_superuser %}
@@ -24,7 +26,7 @@
             {% if chart_list %}
             {% for chart in chart_list %}
             <tr class="text-center" onclick="location.href='/chart/{{ chart.id }}/'">
-                <td>{{ chart.chart_rank }}</td>
+                <td>{{ forloop.counter }}</td>
                 <td>{{ chart.chart_title|truncatechars:30 }}</td>
                 <td>{{ chart.chart_url }}</td>
                 {% if user.is_superuser %}
